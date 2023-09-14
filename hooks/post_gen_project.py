@@ -59,9 +59,9 @@ def print_futher_instuctions(project_name: str, github: str) -> None:
         $ make install
         $ make pre-commit-install
 
-    4) Run codestyle:
+    4) Run formatters, linters, and tests:
 
-        $ make codestyle
+        $ make format lint test
 
     5) Upload initial code to GitHub:
 
