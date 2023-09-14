@@ -37,7 +37,6 @@ classifiers = [  #! Update me
 
 [tool.poetry.dependencies]
 python = "^{{ cookiecutter.minimal_python_version }}"
-{% if cookiecutter.minimal_python_version == '3.7' -%}importlib_metadata = {version = "^4.5.0", python = "<3.8"}{%- endif -%}
 
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"
@@ -175,8 +174,6 @@ disable = [
   "no-value-for-parameter",
   "no-member",
   "no-else-return",
-  "bad-whitespace",
-  "bad-continuation",
   "line-too-long",
   "fixme",
   "protected-access",
@@ -184,7 +181,6 @@ disable = [
   "invalid-name",
   "unspecified-encoding",
   "no-self-argument",  # pydantic validators
-  "no-self-use",  # pydantic validators
   "redefined-outer-name",  # pytest fixtures
   "unused-import",  # pylint does not give a fuck about type annotations
 ]
@@ -215,7 +211,7 @@ max-attributes = 10
 max-statements = 30
 
 [tool.pylint.exceptions]
-overgeneral-exceptions = ["BaseException", "Exception"]
+overgeneral-exceptions = ["builtins.BaseException", "builtins.Exception"]
 
 [tool.bandit]
 skips = ["B101"]
