@@ -5,32 +5,15 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "python-package-template"
-version = "1.1.1"
-description = "Cookiecutter template for Python cli/packages"
+version = "1.0.0"
+description = "Cookiecutter template for Python Projects"
 readme = "README.md"
-authors = ["Roman Tezikov <tez.romach@gmail.com>"]
-license = "MIT"
-repository = "https://github.com/TezRomacH/python-package-template"
-homepage = "https://github.com/TezRomacH/python-package-template"
-keywords = [
-    "python",
-    "cookiecutter",
-    "template",
-    "packages",
-    "makefile",
-    "best-practices",
-    "poetry",
-    "codestyle",
-    "formatters",
-    "python-packages",
-    "semantic-versions"
-]
-
-# Pypi classifiers: https://pypi.org/classifiers/
-classifiers = []
+authors = ["Aidar Garikhanov <a1d4r@yandex.ru>"]
+repository = "https://github.com/a1d4r/python-package-template"
+homepage = "https://github.com/a1d4r/python-package-template"
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
+python = "^3.9"
 cookiecutter = "^2.3.0"
 
 [tool.poetry.dev-dependencies]
@@ -46,9 +29,7 @@ pylint = "^2.17.5"
 pytest = "^7.4.2"
 pyupgrade = "^3.10.1"
 safety = "^2.3.5"
-coverage = "^7.3.1"
-coverage-badge = "^1.1.0"
-pytest-html = "^4.0.1"
+pytest-html = "^4.0.2"
 pytest-cov = "^4.1.0"
 
 [tool.black]

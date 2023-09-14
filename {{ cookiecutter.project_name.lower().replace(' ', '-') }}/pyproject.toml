@@ -1,10 +1,3 @@
-{%- set license_classifiers = {
-    'MIT': 'License :: OSI Approved :: MIT License',
-    'BSD-3': 'License :: OSI Approved :: BSD License',
-    'GNU GPL v3.0': 'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
-    'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
-} -%}
-{%- set python_version_splitted = cookiecutter.minimal_python_version.split('.') | map('int') | list -%}
 # Poetry pyproject.toml: https://python-poetry.org/docs/pyproject/
 [build-system]
 requires = ["poetry_core>=1.0.0"]
@@ -16,7 +9,6 @@ version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.project_description }}"
 readme = "README.md"
 authors = ["{{ cookiecutter.organization }} <{{ cookiecutter.email }}>"]
-license = "{{ cookiecutter.license }}"
 repository = "https://github.com/{{ cookiecutter.github_name }}/{{ cookiecutter.project_name }}"
 homepage = "https://github.com/{{ cookiecutter.github_name }}/{{ cookiecutter.project_name }}"
 
@@ -37,8 +29,6 @@ pylint = "^2.17.5"
 pytest = "^7.4.2"
 pyupgrade = "^3.10.1"
 safety = "^2.3.5"
-coverage = "^7.3.1"
-coverage-badge = "^1.1.0"
 pytest-html = "^4.0.2"
 pytest-cov = "^4.1.0"
 types-setuptools = "^68.2.0.0"
@@ -84,9 +74,9 @@ python_version = {{ cookiecutter.minimal_python_version }}
 pretty = true
 show_traceback = true
 color_output = true
-#plugins = [
-#  "pydantic.mypy"
-#]
+plugins = [
+  "pydantic.mypy"
+]
 
 allow_redefinition = false
 check_untyped_defs = true
@@ -113,12 +103,11 @@ module = "tests.*"
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
 
-#[tool.pydantic-mypy]
-## https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin
-#init_forbid_extra = true
-#init_typed = true
-#warn_required_dynamic_aliases = true
-#warn_untyped_fields = true
+[tool.pydantic-mypy]
+# https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
 
 [tool.pytest.ini_options]
 # https://docs.pytest.org/en/6.2.x/customize.html#pyproject-toml
@@ -166,9 +155,7 @@ disable = [
   "too-few-public-methods",
   "invalid-name",
   "unspecified-encoding",
-  "no-self-argument",  # pydantic validators
   "redefined-outer-name",  # pytest fixtures
-  "unused-import",  # pylint does not give a fuck about type annotations
 ]
 
 [tool.pylint.refactoring]
