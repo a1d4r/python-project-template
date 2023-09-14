@@ -11,22 +11,6 @@ readme = "README.md"
 authors = ["Aidar Garikhanov <a1d4r@yandex.ru>"]
 repository = "https://github.com/a1d4r/python-package-template"
 homepage = "https://github.com/a1d4r/python-package-template"
-keywords = [
-    "python",
-    "cookiecutter",
-    "template",
-    "packages",
-    "makefile",
-    "best-practices",
-    "poetry",
-    "codestyle",
-    "formatters",
-    "python-packages",
-    "semantic-versions"
-]
-
-# Pypi classifiers: https://pypi.org/classifiers/
-classifiers = []
 
 [tool.poetry.dependencies]
 python = "^3.9"
