@@ -154,7 +154,7 @@ make static-lint
 </details>
 
 <details>
-<summary>6. Tests with coverage badges</summary>
+<summary>6. Tests with coverage</summary>
 <p>
 
 Run `pytest`

@@ -2,7 +2,6 @@
   "project_name": "python-project",
   "project_description": "Project description for `{{ cookiecutter.project_name.lower().replace(' ', '-') }}`",
   "organization": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
-  "_all_python_minor_version": [7, 8, 9],
   "minimal_python_version": ["3.9", "3.10", "3.11"],
   "github_name": "{{ cookiecutter.organization.lower().replace(' ', '_').replace('-', '_') }}",
   "email": "hello@{{ cookiecutter.organization.lower().replace(' ', '-') }}.com",

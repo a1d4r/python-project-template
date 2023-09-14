@@ -44,7 +44,6 @@ format: codestyle
 .PHONY: test
 test:
 	poetry run pytest -c pyproject.toml --cov-report=html --cov={{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }} $(TESTS)
-	poetry run coverage-badge -o assets/images/coverage.svg -f
 
 # Validate pyproject.toml
 .PHONY: check-poetry
@@ -98,7 +97,7 @@ lint: check-poetry check-codestyle static-lint check-security
 
 .PHONY: update-dev-deps
 update-dev-deps:
-	poetry add -D autoflake@latest bandit@latest darglint@latest "isort[colors]@latest" mypy@latest pre-commit@latest pydocstyle@latest pylint@latest pytest@latest pyupgrade@latest safety@latest coverage@latest coverage-badge@latest pytest-html@latest pytest-cov@latest
+	poetry add -D autoflake@latest bandit@latest darglint@latest "isort[colors]@latest" mypy@latest pre-commit@latest pydocstyle@latest pylint@latest pytest@latest pyupgrade@latest safety@latest coverage@latest pytest-html@latest pytest-cov@latest
 	poetry add -D --allow-prereleases black@latest
 
 #* Docker
