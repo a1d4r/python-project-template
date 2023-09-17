@@ -1,5 +1,6 @@
 # {{ cookiecutter.project_name }}
 
+{{ cookiecutter.project_description }}
 
 ## Getting started
 
@@ -36,7 +37,7 @@ make format lint test
 git add .
 git commit -m "Initial commit"
 git branch -M master
-git remote add origin https://github.com/{{ cookiecutter.github_name }}/{{ cookiecutter.project_name }}.git
+git remote add origin {{ cookiecutter.git_repo_url }}.git
 git push -u origin master
 ```
 
@@ -48,7 +49,7 @@ poetry add {{ cookiecutter.project_name }}
 
 ### Makefile usage
 
-[`Makefile`](https://github.com/{{ cookiecutter.github_name }}/{{ cookiecutter.project_name }}/blob/master/Makefile) contains a lot of functions for faster development.
+[`Makefile`]({{ cookiecutter.git_repo_url }}/blob/master/Makefile) contains a lot of functions for faster development.
 
 <details>
 <summary>1. Download and remove Poetry</summary>
@@ -79,7 +80,7 @@ Install requirements:
 make install
 ```
 
-Pre-commit hooks coulb be installed after `git init` via
+Pre-commit hooks could be installed after `git init` via
 
 ```bash
 make pre-commit-install
@@ -205,7 +206,7 @@ Remove docker image with
 make docker-remove
 ```
 
-More information [about docker](https://github.com/{{ cookiecutter.github_name }}/{{ cookiecutter.project_name }}/tree/master/docker).
+More information [about docker]({{ cookiecutter.git_repo_url }}/tree/master/docker).
 
 </p>
 </details>

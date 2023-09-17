@@ -3,9 +3,10 @@
 default_context:
   project_name: "{{ cookiecutter.project_name }}"
   project_description: "{{ cookiecutter.project_description }}"
-  organization: "{{ cookiecutter.organization }}"
-  minimal_python_version: {{ cookiecutter.minimal_python_version }}
-  github_name: "{{ cookiecutter.github_name }}"
+  git_platform: "{{ cookiecutter.git_platform }}"
+  username: "{{ cookiecutter.username }}"
+  git_repo_url: "{{ cookiecutter.git_repo_url }}"
   email: "{{ cookiecutter.email }}"
   version: "{{ cookiecutter.version }}"
+  minimal_python_version: "{{ cookiecutter.minimal_python_version }}"
   line_length: "{{ cookiecutter.line_length }}"

@@ -1,0 +1,79 @@
+# Global --------------------------
+
+variables:
+  PIP_CACHE_DIR: "${CI_PROJECT_DIR}/.cache/pip"
+
+cache:
+  key: "${CI_JOB_NAME}"
+  paths:
+    - .cache/pip
+    - .venv
+
+stages:
+  - quality
+  - tests
+
+# Jobs templates ------------------
+
+.install-deps-template: &install-deps
+  before_script:
+    - pip install poetry
+    - poetry --version
+    - poetry config virtualenvs.in-project true
+    - poetry install -vv
+
+.quality-template: &quality
+  <<: *install-deps
+  image: python:3.9
+  stage: quality
+
+.test-template: &test
+  <<: *install-deps
+  stage: tests
+  coverage: '/TOTAL.*\s(\d+\.\d+\%)/'
+  script: make test
+  artifacts:
+    paths:
+      - tests/logs
+    when: always
+    expire_in: 1 week
+
+# Quality jobs ----------------------
+
+check-poetry:
+  <<: *quality
+  script: make check-poetry
+
+check-isort:
+  <<: *quality
+  script: make check-isort
+
+check-black:
+  <<: *quality
+  script: make check-black
+
+check-darglint:
+  <<: *quality
+  script: make check-darglint
+
+check-pylint:
+  <<: *quality
+  script: make check-pylint
+
+check-mypy:
+  <<: *quality
+  script: make check-mypy
+
+check-bandit:
+  <<: *quality
+  script: make check-bandit
+
+check-safety:
+  <<: *quality
+  script: make check-safety
+
+# Tests jobs ------------------------
+
+python{{ cookiecutter.minimal_python_version }}:
+  <<: *test
+  image: python:{{ cookiecutter.minimal_python_version }}

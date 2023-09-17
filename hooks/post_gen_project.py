@@ -1,32 +1,31 @@
 """This module is called after project is created."""
-from typing import List
-
 import textwrap
 from pathlib import Path
-from shutil import move, rmtree
 
 # Project root directory
 PROJECT_DIRECTORY = Path.cwd().absolute()
 PROJECT_NAME = "{{ cookiecutter.project_name }}"
-PROJECT_MODULE = "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}"
 
-# Values to generate github repository
-GITHUB_USER = "{{ cookiecutter.github_name }}"
+# Values to generate Git repository
+GIT_REPO_URL = "{{ cookiecutter.git_repo_url }}"
+GIT_PLATFORM = "{{ cookiecutter.git_platform }}"
 
 
-def print_futher_instuctions(project_name: str, github: str) -> None:
+def print_further_instructions(project_name: str, git_repo_url: str) -> None:
     """Show user what to do next after project creation.
 
     Args:
         project_name: current project name
-        github: GitHub username
+        git_repo_url: Git repository URL
     """
+    project_directory = project_name.lower().replace(' ', '-')
+
     message = f"""
     Your project {project_name} is created.
 
     1) Now you can start working on it:
 
-        $ cd {project_name} && git init
+        $ cd {project_directory} && git init
 
     2) If you don't have Poetry installed run:
 
@@ -44,16 +43,40 @@ def print_futher_instuctions(project_name: str, github: str) -> None:
     5) Upload initial code to GitHub:
 
         $ git add .
-        $ git commit -m ":tada: Initial commit"
+        $ git commit -m "Initial commit"
         $ git branch -M main
-        $ git remote add origin https://github.com/{github}/{project_name}.git
+        $ git remote add origin {git_repo_url}.git
         $ git push -u origin main
     """
     print(textwrap.dedent(message))
 
 
+def rm_tree(pth: Path):
+    for child in pth.iterdir():
+        if child.is_file():
+            child.unlink()
+        else:
+            rm_tree(child)
+    pth.rmdir()
+
+
+def remove_unrelated_ci_configuration(
+    project_directory: Path, git_platform: str,
+) -> None:
+    if git_platform == 'github':
+        (project_directory / '.gitlab-ci.yml').unlink()
+    elif git_platform == 'gitlab':
+        rm_tree(project_directory / '.github')
+    else:
+        raise ValueError(f'Unsupported git platform: {git_platform}')
+
+
 def main() -> None:
-    print_futher_instuctions(project_name=PROJECT_NAME, github=GITHUB_USER)
+    print_further_instructions(project_name=PROJECT_NAME, git_repo_url=GIT_REPO_URL)
+    remove_unrelated_ci_configuration(
+        project_directory=PROJECT_DIRECTORY,
+        git_platform=GIT_PLATFORM,
+    )
 
 
 if __name__ == "__main__":

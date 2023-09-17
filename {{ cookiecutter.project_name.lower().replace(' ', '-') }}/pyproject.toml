@@ -8,9 +8,9 @@ name = "{{ cookiecutter.project_name }}"
 version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.project_description }}"
 readme = "README.md"
-authors = ["{{ cookiecutter.organization }} <{{ cookiecutter.email }}>"]
-repository = "https://github.com/{{ cookiecutter.github_name }}/{{ cookiecutter.project_name }}"
-homepage = "https://github.com/{{ cookiecutter.github_name }}/{{ cookiecutter.project_name }}"
+authors = ["{{ cookiecutter.username }} <{{ cookiecutter.email }}>"]
+repository = "{{ cookiecutter.git_repo_url }}"
+homepage = "{{ cookiecutter.git_repo_url }}"
 
 [tool.poetry.dependencies]
 python = "^{{ cookiecutter.minimal_python_version }}"
@@ -56,8 +56,8 @@ exclude = '''
 '''
 
 [tool.isort]
-# https://github.com/timothycrosley/isort/
-py_version = {{ cookiecutter.minimal_python_version.replace('.', '') }}
+# https://pycqa.github.io/isort/docs/configuration/config_files.html
+py_version = "{{ cookiecutter.minimal_python_version.replace('.', '') }}"
 line_length = {{ cookiecutter.line_length }}
 
 known_typing = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
@@ -70,13 +70,13 @@ color_output = true
 
 [tool.mypy]
 # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
-python_version = {{ cookiecutter.minimal_python_version }}
+python_version = "{{ cookiecutter.minimal_python_version }}"
 pretty = true
 show_traceback = true
 color_output = true
-plugins = [
-  "pydantic.mypy"
-]
+#plugins = [
+#  "pydantic.mypy"
+#]
 
 allow_redefinition = false
 check_untyped_defs = true
@@ -103,11 +103,11 @@ module = "tests.*"
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
 
-[tool.pydantic-mypy]
-# https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin
-init_forbid_extra = true
-init_typed = true
-warn_required_dynamic_aliases = true
+#[tool.pydantic-mypy]
+## https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin
+#init_forbid_extra = true
+#init_typed = true
+#warn_required_dynamic_aliases = true
 
 [tool.pytest.ini_options]
 # https://docs.pytest.org/en/6.2.x/customize.html#pyproject-toml
