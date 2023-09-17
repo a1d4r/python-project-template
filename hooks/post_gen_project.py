@@ -18,7 +18,7 @@ def print_further_instructions(project_name: str, git_repo_url: str) -> None:
         project_name: current project name
         git_repo_url: Git repository URL
     """
-    project_directory = project_name.lower().replace(' ', '-')
+    project_directory = project_name.lower().replace(" ", "-")
 
     message = f"""
     Your project {project_name} is created.
@@ -61,14 +61,15 @@ def rm_tree(pth: Path):
 
 
 def remove_unrelated_ci_configuration(
-    project_directory: Path, git_platform: str,
+    project_directory: Path,
+    git_platform: str,
 ) -> None:
-    if git_platform == 'github':
-        (project_directory / '.gitlab-ci.yml').unlink()
-    elif git_platform == 'gitlab':
-        rm_tree(project_directory / '.github')
+    if git_platform == "github":
+        (project_directory / ".gitlab-ci.yml").unlink()
+    elif git_platform == "gitlab":
+        rm_tree(project_directory / ".github")
     else:
-        raise ValueError(f'Unsupported git platform: {git_platform}')
+        raise ValueError(f"Unsupported git platform: {git_platform}")
 
 
 def main() -> None:
