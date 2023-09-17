@@ -1,13 +1,11 @@
 {
   "project_name": "python-project",
-  "project_description": "Project description for `{{ cookiecutter.project_name.lower().replace(' ', '-') }}`",
-  "organization": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
-  "minimal_python_version": ["3.9", "3.10", "3.11"],
-  "github_name": "{{ cookiecutter.organization.lower().replace(' ', '_').replace('-', '_') }}",
-  "email": "hello@{{ cookiecutter.organization.lower().replace(' ', '-') }}.com",
+  "project_description": "Description for `{{ cookiecutter.project_name.lower().replace(' ', '-') }}`",
+  "git_platform": ["github", "gitlab"],
+  "username": "username",
+  "git_repo_url": "https://{{ cookiecutter.git_platform }}.com/{{ cookiecutter.username.lower() }}/{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
+  "email": "{{ cookiecutter.username }}@example.com",
   "version": "0.1.0",
-  "line_length": 88,
-  "_copy_without_render": [
-    "poetry.lock"
-  ]
+  "minimal_python_version": ["3.9", "3.10", "3.11"],
+  "line_length": 88
 }

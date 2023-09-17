@@ -34,7 +34,7 @@ pytest-cov = "^4.1.0"
 
 [tool.black]
 # https://github.com/psf/black
-target-version = ["py311"]
+target-version = ["py310"]
 line-length = 100
 color = true
 
@@ -56,7 +56,7 @@ exclude = '''
 
 [tool.isort]
 # https://github.com/timothycrosley/isort/
-py_version = 37
+py_version = "310"
 line_length = 100
 
 known_typing = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
@@ -70,7 +70,7 @@ color_output = true
 
 [tool.mypy]
 # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
-python_version = 3.11
+python_version = "3.10"
 pretty = true
 show_traceback = true
 color_output = true
