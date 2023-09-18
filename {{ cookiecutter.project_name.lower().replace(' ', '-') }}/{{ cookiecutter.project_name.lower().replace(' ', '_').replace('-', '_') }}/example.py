@@ -17,3 +17,7 @@ def hello(name: str) -> str:
             'Hello Roman!'
     """
     return f"Hello {name}!"
+
+
+if __name__ == "__main__":
+    print(hello("World"))
