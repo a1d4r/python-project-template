@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: {{ cookiecutter.project_name.lower().replace(' ', '-') }}:latest
+    volumes:
+      - ./{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}:/app/{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}
+volumes:
+  db-data: {}
+  cache-data: {}

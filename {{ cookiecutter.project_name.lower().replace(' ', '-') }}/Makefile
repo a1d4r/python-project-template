@@ -106,9 +106,7 @@ update-dev-deps:
 .PHONY: docker-build
 docker-build:
 	@echo Building docker $(IMAGE):$(VERSION) ...
-	docker build \
-		-t $(IMAGE):$(VERSION) . \
-		-f ./docker/Dockerfile --no-cache
+	docker build -t $(IMAGE):$(VERSION) .
 
 # Example: make docker-remove VERSION=latest
 # Example: make docker-remove IMAGE=some_name VERSION={{ cookiecutter.version }}
@@ -116,6 +114,10 @@ docker-build:
 docker-remove:
 	@echo Removing docker $(IMAGE):$(VERSION) ...
 	docker rmi -f $(IMAGE):$(VERSION)
+
+.PHONY: docker-up
+docker-up:
+	docker compose up
 
 #* Cleaning
 .PHONY: pycache-remove
