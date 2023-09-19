@@ -1,6 +1,7 @@
 {
   "project_name": "python-project",
   "project_description": "Description for `{{ cookiecutter.project_name.lower().replace(' ', '-') }}`",
+  "package_name": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('-', '_') }}",
   "git_platform": ["github", "gitlab"],
   "username": "username",
   "git_repo_url": "https://{{ cookiecutter.git_platform }}.com/{{ cookiecutter.username.lower() }}/{{ cookiecutter.project_name.lower().replace(' ', '-') }}",

@@ -51,17 +51,18 @@ Template generator will ask you to fill some variables.
 
 The input variables, with their default values:
 
-|      **Parameter**       |                    **Default value**                    | **Description**                                                                                                                    |
-|:------------------------:|:-------------------------------------------------------:|------------------------------------------------------------------------------------------------------------------------------------|
-|      `project_name`      |                    `python-project`                     | [Check the availability of possible name](http://ivantomic.com/projects/ospnc/) before creating the project.                       |
-|  `project_description`   |               based on the `project_name`               | Brief description of your project.                                                                                                 |
-|      `git_platform`      |                        `github`                         | Git platform (Github/Gitlab)                                                                                                       |
-|        `username`        |                       `username`                        | User or organization name for Git platform                                                                                         |
-|      `git_repo_url`      | based on `git_platform`, `project_name` and `username`  | URL to the git repository                                                                                                          |
-|         `email`          |               based on the `organization`               | Email for `CODE_OF_CONDUCT.md`, `SECURITY.md` files and to specify the ownership of the project in `pyproject.toml`.               |
-|        `version`         |                         `0.1.0`                         | Initial version of the package. Make sure it follows the [Semantic Versions](https://semver.org/) specification.                   |
-| `minimal_python_version` |                          `3.8`                          | Minimal Python version. One of `3.9`, `3.10`, `3.11`. It is used for builds, CI and formatters (`black`, `isort` and `pyupgrade`). |
-|      `line_length`       |                           88                            | The max length per line (used for codestyle with `black` and `isort`). NOTE: This value must be between 50 and 300.                |
+|      **Parameter**       |                   **Default value**                    | **Description**                                                                                                                    |
+|:------------------------:|:------------------------------------------------------:|------------------------------------------------------------------------------------------------------------------------------------|
+|      `project_name`      |                    `python-project`                    | [Check the availability of possible name](http://ivantomic.com/projects/ospnc/) before creating the project.                       |
+|  `project_description`   |              based on the `project_name`               | Brief description of your project.                                                                                                 |
+|      `package_name`      |              based on the `project_name`               | Name of the python package with source code                                                                                        |
+|      `git_platform`      |                        `github`                        | Git platform (Github/Gitlab)                                                                                                       |
+|        `username`        |                       `username`                       | User or organization name for Git platform                                                                                         |
+|      `git_repo_url`      | based on `git_platform`, `project_name` and `username` | URL to the git repository                                                                                                          |
+|         `email`          |                based on the `username`                 | To specify the ownership of the project in `pyproject.toml`.                                                                       |
+|        `version`         |                        `0.1.0`                         | Initial version of the package. Make sure it follows the [Semantic Versions](https://semver.org/) specification.                   |
+| `minimal_python_version` |                         `3.9`                          | Minimal Python version. One of `3.9`, `3.10`, `3.11`. It is used for builds, CI and formatters (`black`, `isort` and `pyupgrade`). |
+|      `line_length`       |                           88                           | The max length per line (used for codestyle with `black` and `isort`). NOTE: This value must be between 50 and 300.                |
 
 All input values will be saved in the `cookiecutter-config-file.yml` file so that you won't lose them. 😉
 

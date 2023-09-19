@@ -4,7 +4,7 @@ requires = ["poetry_core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "{{ cookiecutter.project_name }}"
+name = "{{ cookiecutter.project_name.lower().replace(' ', '-') }}"
 version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.project_description }}"
 readme = "README.md"
@@ -127,7 +127,7 @@ addopts = [
 source = ["tests"]
 
 [coverage.paths]
-source = "{{ cookiecutter.project_name }}"
+source = "{{ cookiecutter.package_name }}"
 
 [coverage.run]
 branch = true

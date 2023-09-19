@@ -81,7 +81,7 @@ RUN --mount=type=cache,target=/root/.cache \
 # will become mountpoint of our code
 WORKDIR /app
 
-CMD ["python", "-m", "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}.example"]
+CMD ["python", "-m", "{{ cookiecutter.package_name }}.example"]
 
 
 ################################
@@ -90,6 +90,6 @@ CMD ["python", "-m", "{{ cookiecutter.project_name.lower().replace(' ', '_').rep
 ################################
 FROM python-base as production
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-COPY ./{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }} /app/{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}
+COPY ./{{ cookiecutter.package_name }} /app/{{ cookiecutter.package_name }}
 WORKDIR /app
-CMD ["python", "-m", "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}.example"]
+CMD ["python", "-m", "{{ cookiecutter.package_name }}.example"]
