@@ -9,7 +9,7 @@
 1. Initialize `git` inside your repo:
 
 ```bash
-cd {{ cookiecutter.project_name }} && git init
+cd {{ cookiecutter.project_name.lower().replace(' ', '-') }} && git init
 ```
 
 2. If you don't have `Poetry` installed run:
@@ -44,7 +44,7 @@ git push -u origin master
 ## Installation
 
 ```bash
-poetry add {{ cookiecutter.project_name }}
+poetry add {{ cookiecutter.project_name.lower().replace(' ', '-') }}
 ```
 
 ### Makefile usage

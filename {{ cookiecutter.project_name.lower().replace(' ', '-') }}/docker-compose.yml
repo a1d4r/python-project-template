@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     image: {{ cookiecutter.project_name.lower().replace(' ', '-') }}:latest
     volumes:
-      - ./{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}:/app/{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}
+      - ./{{ cookiecutter.package_name }}:/app/{{ cookiecutter.package_name }}
 volumes:
   db-data: {}
   cache-data: {}

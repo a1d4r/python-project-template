@@ -3,11 +3,11 @@ SHELL := /usr/bin/env bash
 PYTHON := python3
 
 #* Docker variables
-IMAGE := {{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}
+IMAGE := {{ cookiecutter.project_name.lower().replace(' ', '-') }}
 VERSION := latest
 
 #* Directories with source code
-CODE = {{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }} tests
+CODE = {{ cookiecutter.package_name }} tests
 TESTS = tests
 
 #* Poetry
@@ -43,7 +43,7 @@ format: codestyle
 #* Test
 .PHONY: test
 test:
-	poetry run pytest -c pyproject.toml --cov-report=html --cov={{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }} $(TESTS)
+	poetry run pytest -c pyproject.toml --cov-report=html --cov={{ cookiecutter.package_name }} $(TESTS)
 
 # Validate pyproject.toml
 .PHONY: check-poetry

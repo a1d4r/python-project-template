@@ -1,7 +1,7 @@
 """Tests for hello function."""
 import pytest
 
-from {{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}.example import hello
+from {{ cookiecutter.package_name }}.example import hello
 
 
 @pytest.mark.parametrize(
