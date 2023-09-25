@@ -2,22 +2,13 @@
 
 
 def hello(name: str) -> str:
-    """Just an greetings example.
+    """Just a greetings example.
 
-    Args:
-        name (str): Name to greet.
-
-    Returns:
-        str: greeting message
-
-    Examples:
-        .. code:: python
-
-            >>> hello("Roman")
-            'Hello Roman!'
+    >>> hello("World")
+    'Hello World!'
     """
     return f"Hello {name}!"
 
 
 if __name__ == "__main__":
-    print(hello("World"))
+    print(hello("World"))  # noqa: T201

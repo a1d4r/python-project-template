@@ -24,7 +24,7 @@ stages:
 
 .quality-template: &quality
   <<: *install-deps
-  image: python:3.9
+  image: python:{{ cookiecutter.python_version }}
   stage: quality
 
 .test-template: &test
@@ -44,29 +44,17 @@ check-poetry:
   <<: *quality
   script: make check-poetry
 
-check-isort:
-  <<: *quality
-  script: make check-isort
-
 check-black:
   <<: *quality
   script: make check-black
 
-check-darglint:
+check-ruff:
   <<: *quality
-  script: make check-darglint
-
-check-pylint:
-  <<: *quality
-  script: make check-pylint
+  script: make check-ruff
 
 check-mypy:
   <<: *quality
   script: make check-mypy
-
-check-bandit:
-  <<: *quality
-  script: make check-bandit
 
 check-safety:
   <<: *quality
@@ -74,6 +62,6 @@ check-safety:
 
 # Tests jobs ------------------------
 
-python{{ cookiecutter.minimal_python_version }}:
+python{{ cookiecutter.python_version }}:
   <<: *test
-  image: python:{{ cookiecutter.minimal_python_version }}
+  image: python:{{ cookiecutter.python_version }}
