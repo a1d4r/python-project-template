@@ -7,6 +7,6 @@
   "git_repo_url": "https://{{ cookiecutter.git_platform }}.com/{{ cookiecutter.username.lower() }}/{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
   "email": "{{ cookiecutter.username }}@example.com",
   "version": "0.1.0",
-  "minimal_python_version": ["3.9", "3.10", "3.11"],
+  "python_version": "3.9",
   "line_length": 88
 }

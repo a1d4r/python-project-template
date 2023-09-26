@@ -4,7 +4,7 @@
 # PYTHON-BASE
 # Sets up all our shared environment variables
 ################################
-FROM python:{{ cookiecutter.minimal_python_version }}-slim as python-base
+FROM python:{{ cookiecutter.python_version }}-slim as python-base
 
     # python
 ENV PYTHONUNBUFFERED=1 \

@@ -9,5 +9,5 @@ default_context:
   git_repo_url: "{{ cookiecutter.git_repo_url }}"
   email: "{{ cookiecutter.email }}"
   version: "{{ cookiecutter.version }}"
-  minimal_python_version: "{{ cookiecutter.minimal_python_version }}"
+  python_version: "{{ cookiecutter.python_version }}"
   line_length: "{{ cookiecutter.line_length }}"

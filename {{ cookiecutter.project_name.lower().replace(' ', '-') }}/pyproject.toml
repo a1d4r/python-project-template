@@ -1,9 +1,8 @@
-# Poetry pyproject.toml: https://python-poetry.org/docs/pyproject/
-[build-system]
+[build-system]  # https://python-poetry.org/docs/pyproject/#poetry-and-pep-517
 requires = ["poetry_core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poetry]
+[tool.poetry]  # https://python-poetry.org/docs/pyproject/
 name = "{{ cookiecutter.project_name.lower().replace(' ', '-') }}"
 version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.project_description }}"
@@ -12,179 +11,141 @@ authors = ["{{ cookiecutter.username }} <{{ cookiecutter.email }}>"]
 repository = "{{ cookiecutter.git_repo_url }}"
 homepage = "{{ cookiecutter.git_repo_url }}"
 
-[tool.poetry.dependencies]
-python = "^{{ cookiecutter.minimal_python_version }}"
+[tool.poetry.dependencies]  # https://python-poetry.org/docs/dependency-specification/
+python = "^{{ cookiecutter.python_version }}"
 
-[tool.poetry.group.dev.dependencies]
-autoflake = "^2.2.1"
-bandit = "^1.7.5"
+[tool.poetry.group.dev.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
 black = "^23.9.1"
-darglint = "^1.8.1"
-isort = {extras = ["colors"], version = "^5.12.0"}
 mypy = "^1.5.1"
-mypy-extensions = "^1.0.0"
 pre-commit = "^3.4.0"
-pydocstyle = "^6.3.0"
-pylint = "^2.17.5"
 pytest = "^7.4.2"
-pyupgrade = "^3.10.1"
+coverage = "^7.3.1"
 safety = "^2.3.5"
-pytest-html = "^4.0.2"
-pytest-cov = "^4.1.0"
-types-setuptools = "^68.2.0.0"
+typeguard = "^4.1.5"
+ruff = "^0.0.291"
 
-[tool.black]
-# https://github.com/psf/black
-target-version = ["py{{ cookiecutter.minimal_python_version.replace('.', '') }}"]
+[tool.black]  # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
+target-version = ["py{{ cookiecutter.python_version.replace('.', '') }}"]
 line-length = {{ cookiecutter.line_length }}
 color = true
 
-exclude = '''
-/(
-    \.git
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-    | env
-    | venv
-)/
-'''
-
-[tool.isort]
-# https://pycqa.github.io/isort/docs/configuration/config_files.html
-py_version = "{{ cookiecutter.minimal_python_version.replace('.', '') }}"
-line_length = {{ cookiecutter.line_length }}
-
-known_typing = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
-sections = ["FUTURE", "TYPING", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
-include_trailing_comma = true
-profile = "black"
-multi_line_output = 3
-indent = 4
-color_output = true
-
-[tool.mypy]
-# https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
-python_version = "{{ cookiecutter.minimal_python_version }}"
+[tool.mypy]  # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
+junit_xml = "reports/mypy.xml"
+python_version = "{{ cookiecutter.python_version }}"
 pretty = true
+show_column_numbers = true
+show_error_codes = true
+show_error_context = true
 show_traceback = true
 color_output = true
+# Uncomment this if you are using pydantic
 #plugins = [
 #  "pydantic.mypy"
 #]
 
-allow_redefinition = false
-check_untyped_defs = true
-disallow_any_generics = true
-disallow_incomplete_defs = true
-disallow_untyped_defs = true
+strict = true  # https://mypy.readthedocs.io/en/stable/existing_code.html#introduce-stricter-options
 ignore_missing_imports = true
-implicit_reexport = false
-no_implicit_optional = true
-show_column_numbers = true
-show_error_codes = true
-show_error_context = true
-strict_equality = true
-strict_optional = true
-warn_no_return = true
-warn_redundant_casts = true
-warn_return_any = true
-warn_unreachable = true
-warn_unused_configs = true
-warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
 module = "tests.*"
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
 
+# Uncomment this if you are using pydantic
 #[tool.pydantic-mypy]
 ## https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin
 #init_forbid_extra = true
 #init_typed = true
 #warn_required_dynamic_aliases = true
+#warn_untyped_fields = true
 
 [tool.pytest.ini_options]
 # https://docs.pytest.org/en/6.2.x/customize.html#pyproject-toml
-# Directories that are not visited by pytest collector:
-norecursedirs = ["hooks", "*.egg", ".eggs", "dist", "build", "docs", ".tox", ".git", "__pycache__"]
-doctest_optionflags = ["NUMBER", "NORMALIZE_WHITESPACE", "IGNORE_EXCEPTION_DETAIL"]
+# https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref
+filterwarnings = ["error", "ignore::DeprecationWarning"]
+testpaths = ["{{ cookiecutter.package_name }}", "tests"]
+xfail_strict = true
 
 # Extra options:
 addopts = [
+  "--color=yes",
+  "--failed-first",
+  "--strict-config",
   "--strict-markers",
   "--tb=short",
+  "--verbosity=2",
   "--doctest-modules",
   "--doctest-continue-on-failure",
+  "--typeguard-packages={{ cookiecutter.package_name }}",
+  "--junitxml=reports/pytest.xml"
 ]
 
-[tool.coverage.run]
-source = ["tests"]
-
-[coverage.paths]
-source = "{{ cookiecutter.package_name }}"
-
-[coverage.run]
+[tool.coverage.run]  # https://coverage.readthedocs.io/en/latest/config.html#run
 branch = true
+command_line = "--module pytest"
+data_file = "reports/.coverage"
+source = ["{{ cookiecutter.package_name }}"]
 
-[coverage.report]
-fail_under = 50
+[tool.coverage.report]  # https://coverage.readthedocs.io/en/latest/config.html#report
+precision = 1
 show_missing = true
+skip_covered = true
 
-[tool.pylint.master]
-fail-under = 10.0
-ignore = ["CVS"]
-
-[tool.pylint.messages_control]
-max-line-length = {{ cookiecutter.line_length }}
-extension-pkg-whitelist = ["pydantic"]
-disable = [
-  "missing-docstring",
-  "unused-argument",
-  "no-value-for-parameter",
-  "no-member",
-  "no-else-return",
-  "line-too-long",
-  "fixme",
-  "protected-access",
-  "too-few-public-methods",
-  "invalid-name",
-  "unspecified-encoding",
-  "redefined-outer-name",  # pytest fixtures
-]
-
-[tool.pylint.refactoring]
-max-nested-blocks = 3
-
-[tool.pylint.miscellaneous]
-notes = ["FIXME", "TODO"]
+[tool.coverage.xml]  # https://coverage.readthedocs.io/en/latest/config.html#xml
+output = "reports/coverage.xml"
 
 [tool.pylint.basic]
 class-attribute-naming-style = "any"
 class-const-naming-style = "any"
 good-names=["i", "j", "k", "e", "x", "id", "_", "pk"]
 
-[tool.pylint.format]
-max-module-lines = 300
-
-[tool.pylint.similarities]
-min-similarity-lines = 10
-ignore-docstrings = true
-ignore-comments = true
-ignore-imports = true
-
-[tool.pylint.design]
-max-args = 10
-max-attributes = 10
-max-statements = 30
-
 [tool.pylint.exceptions]
 overgeneral-exceptions = ["builtins.BaseException", "builtins.Exception"]
 
-[tool.bandit]
-skips = ["B101"]
+[tool.ruff]  # https://github.com/charliermarsh/ruff
+fix = true
+ignore-init-module-imports = true
+line-length = 100
+select = ["ALL"]
+ignore = [
+  "TD", # flake8-todos
+  "FIX", # flake8-fixme
+  "ANN",  # flake8-annotations (handled by mypy)
+  "E501", # pycodestyle - line too long (handled by black)
+  "D100", # pydocstyle - Missing docstring in public module
+  "D101", # pydocstyle - Missing docstring in public class
+  "D102", # pydocstyle - Missing docstring in public method
+  "D103", # pydocstyle - Missing docstring in public function
+  "D104", # pydocstyle - Missing docstring in public package
+  "D105", # pydocstyle - Missing docstring in magic method
+  "D106", # pydocstyle - Missing docstring in public nested class
+  "D107", # pydocstyle - Missing docstring in __init__
+]
+unfixable = []
+target-version = "py{{ cookiecutter.python_version.replace('.', '') }}"
+
+[tool.ruff.per-file-ignores]
+"tests/**/*.py" = [
+    "S101", # Use of assert detected (assert allowed in tests)
+]
+
+[tool.ruff.flake8-tidy-imports]  # https://docs.astral.sh/ruff/settings/#flake8-tidy-imports
+ban-relative-imports = "all"
+
+[tool.ruff.isort]  # https://docs.astral.sh/ruff/settings/#isort
+section-order = ["future", "typing", "standard-library", "third-party", "first-party", "local-folder"]
+lines-between-types = 1
+
+[tool.ruff.isort.sections]
+"typing" = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
+
+[tool.ruff.pycodestyle]  # https://docs.astral.sh/ruff/settings/#pycodestyle
+max-doc-length = 100
+
+[tool.ruff.pydocstyle]  # https://docs.astral.sh/ruff/settings/#pydocstyle
+convention = "google"
+
+[tool.ruff.pylint]  # https://docs.astral.sh/ruff/settings/#pylint
+allow-magic-value-types = ["int", "str", "bytes"]
+max-args = 10
+max-statements = 30
