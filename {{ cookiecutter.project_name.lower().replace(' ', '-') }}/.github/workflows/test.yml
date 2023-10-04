@@ -19,7 +19,7 @@ jobs:
       id: setup-python
       uses: actions/setup-python@v4
       with:
-        python-version: {{ cookiecutter.python_version }}
+        python-version: "{{ cookiecutter.python_version }}"
 
     - name: Install Poetry
       uses: snok/install-poetry@v1
