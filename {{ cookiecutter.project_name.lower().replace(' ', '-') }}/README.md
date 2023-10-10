@@ -1,15 +1,14 @@
-# {{ cookiecutter.project_name }}
+# {{ cookiecutter.project_name.replace('-', ' ').replace('_', ' ') }}
 
 {{ cookiecutter.project_description }}
 
-## Getting started
+## Installation
 
-### Initialize your code
-
-1. Initialize `git` inside your repo:
+1. Clone `git` repo:
 
 ```bash
-cd {{ cookiecutter.project_name.lower().replace(' ', '-') }} && git init
+git clone {{ cookiecutter.git_repo_url }}.git
+cd {{ cookiecutter.project_name.lower().replace(' ', '-') }}
 ```
 
 2. If you don't have `Poetry` installed run:
@@ -25,26 +24,10 @@ make install
 make pre-commit-install
 ```
 
-4. Run formatters, linters, and tests
+4. Run formatters, linters, and tests. Make sure there is no errors.
 
 ```bash
 make format lint test
-```
-
-5. Upload initial code to GitHub:
-
-```bash
-git add .
-git commit -m "Initial commit"
-git branch -M master
-git remote add origin {{ cookiecutter.git_repo_url }}.git
-git push -u origin master
-```
-
-## Installation
-
-```bash
-poetry add {{ cookiecutter.project_name.lower().replace(' ', '-') }}
 ```
 
 ### Makefile usage

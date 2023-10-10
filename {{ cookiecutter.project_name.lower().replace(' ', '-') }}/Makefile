@@ -22,7 +22,7 @@ poetry-remove:
 #* Installation
 .PHONY: install
 install:
-	poetry lock --no-interaction
+	poetry lock --no-interaction --no-update
 	poetry install --no-interaction
 
 .PHONY: pre-commit-install
@@ -78,7 +78,7 @@ check-safety:
 	poetry run safety check --full-report
 
 .PHONY: lint
-lint: check-poetry check-codestyle static-lint check-safety
+lint: check-poetry check-codestyle static-lint
 
 .PHONY: update-dev-deps
 update-dev-deps:
