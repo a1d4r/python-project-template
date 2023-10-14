@@ -7,6 +7,3 @@ services:
     image: {{ cookiecutter.project_name.lower().replace(' ', '-') }}:latest
     volumes:
       - ./{{ cookiecutter.package_name }}:/app/{{ cookiecutter.package_name }}
-volumes:
-  db-data: {}
-  cache-data: {}
