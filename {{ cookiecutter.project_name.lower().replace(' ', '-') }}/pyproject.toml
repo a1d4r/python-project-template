@@ -103,7 +103,6 @@ good-names=["i", "j", "k", "e", "x", "id", "_", "pk"]
 overgeneral-exceptions = ["builtins.BaseException", "builtins.Exception"]
 
 [tool.ruff]  # https://github.com/charliermarsh/ruff
-fix = true
 ignore-init-module-imports = true
 line-length = 100
 select = ["ALL"]
@@ -121,7 +120,10 @@ ignore = [
   "D106", # pydocstyle - Missing docstring in public nested class
   "D107", # pydocstyle - Missing docstring in __init__
 ]
-unfixable = []
+unfixable = [
+  "F", # pyflakes
+  "ERA", # eradicate - commented-out code
+]
 target-version = "py{{ cookiecutter.python_version.replace('.', '') }}"
 
 [tool.ruff.per-file-ignores]
