@@ -113,7 +113,11 @@ ignore = [
   "TD", # flake8-todos
   "FIX", # flake8-fixme
   "ANN", # flake8-annotations (handled by mypy)
+  "A003", # Class attribute `id` is shadowing a Python builtin
+  "EM", # flake8-errmsg - String literals in exceptions
   "E501", # pycodestyle - line too long (handled by black)
+  "RUF001", # cyrillic strings
+  "RUF002", # cyrillic docstrings
   "D100", # pydocstyle - Missing docstring in public module
   "D101", # pydocstyle - Missing docstring in public class
   "D102", # pydocstyle - Missing docstring in public method
@@ -141,6 +145,7 @@ ban-relative-imports = "all"
 [tool.ruff.lint.isort]  # https://docs.astral.sh/ruff/settings/#isort
 section-order = ["future", "typing", "standard-library", "third-party", "first-party", "local-folder"]
 lines-between-types = 1
+split-on-trailing-comma = false
 
 [tool.ruff.lint.isort.sections]
 "typing" = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
