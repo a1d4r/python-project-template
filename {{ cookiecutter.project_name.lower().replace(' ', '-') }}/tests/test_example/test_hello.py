@@ -1,4 +1,5 @@
 """Tests for hello function."""
+
 import pytest
 
 from {{ cookiecutter.package_name }}.example import hello

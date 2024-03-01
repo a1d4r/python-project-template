@@ -15,14 +15,14 @@ homepage = "{{ cookiecutter.git_repo_url }}"
 python = "^{{ cookiecutter.python_version }}"
 
 [tool.poetry.group.dev.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
-black = "^23.9.1"
-mypy = "^1.5.1"
-pre-commit = "^3.4.0"
-pytest = "^7.4.2"
-coverage = "^7.3.1"
-safety = "^2.3.5"
+black = "^24.2.0"
+mypy = "^1.8.0"
+pre-commit = "^3.6.2"
+pytest = "^8.0.2"
+coverage = "^7.4.3"
 typeguard = "^4.1.5"
-ruff = "^0.0.291"
+ruff = "^0.3.0"
+safety = "<3.0.0"  # Pinned to <3.0.0 due to https://github.com/pyupio/safety/issues/504
 
 [tool.black]  # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 target-version = ["py{{ cookiecutter.python_version.replace('.', '') }}"]
@@ -97,20 +97,27 @@ output = "reports/coverage.xml"
 [tool.pylint.basic]
 class-attribute-naming-style = "any"
 class-const-naming-style = "any"
-good-names=["i", "j", "k", "e", "x", "id", "_", "pk"]
+good-names = ["i", "j", "k", "e", "x", "id", "_", "pk"]
 
 [tool.pylint.exceptions]
 overgeneral-exceptions = ["builtins.BaseException", "builtins.Exception"]
 
 [tool.ruff]  # https://github.com/charliermarsh/ruff
-ignore-init-module-imports = true
 line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+ignore-init-module-imports = true
 select = ["ALL"]
 ignore = [
   "TD", # flake8-todos
   "FIX", # flake8-fixme
-  "ANN",  # flake8-annotations (handled by mypy)
+  "ANN", # flake8-annotations (handled by mypy)
+  "A003", # Class attribute `id` is shadowing a Python builtin
+  "EM", # flake8-errmsg - String literals in exceptions
   "E501", # pycodestyle - line too long (handled by black)
+  "RUF001", # cyrillic strings
+  "RUF002", # cyrillic docstrings
   "D100", # pydocstyle - Missing docstring in public module
   "D101", # pydocstyle - Missing docstring in public class
   "D102", # pydocstyle - Missing docstring in public method
@@ -124,32 +131,32 @@ unfixable = [
   "F", # pyflakes
   "ERA", # eradicate - commented-out code
 ]
-target-version = "py{{ cookiecutter.python_version.replace('.', '') }}"
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = [
-    "S101", # Use of assert detected (assert allowed in tests)
-    "PLR2004", # Magic value used in comparison
-    "RUF001", # String contains ambiguous letter
+  "S101", # Use of assert detected (assert allowed in tests)
+  "PLR2004", # Magic value used in comparison
+  "RUF001", # String contains ambiguous letter
 ]
 
-[tool.ruff.flake8-tidy-imports]  # https://docs.astral.sh/ruff/settings/#flake8-tidy-imports
+[tool.ruff.lint.flake8-tidy-imports]  # https://docs.astral.sh/ruff/settings/#flake8-tidy-imports
 ban-relative-imports = "all"
 
-[tool.ruff.isort]  # https://docs.astral.sh/ruff/settings/#isort
+[tool.ruff.lint.isort]  # https://docs.astral.sh/ruff/settings/#isort
 section-order = ["future", "typing", "standard-library", "third-party", "first-party", "local-folder"]
 lines-between-types = 1
+split-on-trailing-comma = false
 
-[tool.ruff.isort.sections]
+[tool.ruff.lint.isort.sections]
 "typing" = ["typing", "types", "typing_extensions", "mypy", "mypy_extensions"]
 
-[tool.ruff.pycodestyle]  # https://docs.astral.sh/ruff/settings/#pycodestyle
+[tool.ruff.lint.pycodestyle]  # https://docs.astral.sh/ruff/settings/#pycodestyle
 max-doc-length = 100
 
-[tool.ruff.pydocstyle]  # https://docs.astral.sh/ruff/settings/#pydocstyle
+[tool.ruff.lint.pydocstyle]  # https://docs.astral.sh/ruff/settings/#pydocstyle
 convention = "google"
 
-[tool.ruff.pylint]  # https://docs.astral.sh/ruff/settings/#pylint
+[tool.ruff.lint.pylint]  # https://docs.astral.sh/ruff/settings/#pylint
 allow-magic-value-types = ["int", "str", "bytes"]
 max-args = 10
 max-statements = 30
