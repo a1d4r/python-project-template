@@ -4,12 +4,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]  # https://python-poetry.org/docs/pyproject/
 name = "{{ cookiecutter.project_name.lower().replace(' ', '-') }}"
-version = "{{ cookiecutter.version }}"
-description = "{{ cookiecutter.project_description }}"
-readme = "README.md"
-authors = ["{{ cookiecutter.username }} <{{ cookiecutter.email }}>"]
-repository = "{{ cookiecutter.git_repo_url }}"
-homepage = "{{ cookiecutter.git_repo_url }}"
 
 [tool.poetry.dependencies]  # https://python-poetry.org/docs/dependency-specification/
 python = "^{{ cookiecutter.python_version }}"
