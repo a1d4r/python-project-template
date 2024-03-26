@@ -52,15 +52,16 @@ Template generator will ask you to fill some variables.
 
 The input variables, with their default values:
 
-|     **Parameter**     |                   **Default value**                    | **Description**                                                                                                    |
-|:---------------------:|:------------------------------------------------------:|--------------------------------------------------------------------------------------------------------------------|
-|    `project_name`     |                    `python-project`                    | [Check the availability of possible name](http://ivantomic.com/projects/ospnc/) before creating the project.       |
-|    `package_name`     |              based on the `project_name`               | Name of the python package with source code                                                                        |
-|    `git_platform`     |                        `github`                        | Git platform (Github/Gitlab)                                                                                       |
-|      `username`       |                       `username`                       | User or organization name for Git platform                                                                         |
-|    `git_repo_url`     | based on `git_platform`, `project_name` and `username` | URL to the git repository                                                                                          |
-|   `python_version`    |                         `3.9`                          | Python version. One of `3.9`, `3.10`, `3.11`, `3.12`. It is used for builds, CI and formatters.                    |
-|     `line_length`     |                           88                           | The max length per line (used for codestyle with `black` and `ruff`). NOTE: This value must be between 50 and 300. |
+|   **Parameter**    |                   **Default value**                    | **Description**                                                                                                   |
+|:------------------:|:------------------------------------------------------:|-------------------------------------------------------------------------------------------------------------------|
+|   `project_name`   |                    `python-project`                    | [Check the availability of possible name](http://ivantomic.com/projects/ospnc/) before creating the project.      |
+|   `package_name`   |              based on the `project_name`               | Name of the python package with source code                                                                       |
+|   `git_platform`   |                        `github`                        | Git platform (Github/Gitlab)                                                                                      |
+|     `username`     |                       `username`                       | User or organization name for Git platform                                                                        |
+|   `git_repo_url`   | based on `git_platform`, `project_name` and `username` | URL to the git repository                                                                                         |
+|  `python_version`  |                         `3.9`                          | Python version. One of `3.9`, `3.10`, `3.11`, `3.12`. It is used for builds, CI and formatters.                   |
+|   `line_length`    |                           88                           | The max length per line (used for codestyle with `black` and `ruff`). NOTE: This value must be between 50 and 300. |
+| `install_pydantic` |                          true                          | If `pydantic` with `mypy` plugin should be installed                                                           |
 
 All input values will be saved in the `cookiecutter-config-file.yml` file so that you won't lose them. 😉
 

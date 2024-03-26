@@ -8,16 +8,19 @@ name = "{{ cookiecutter.project_name.lower().replace(' ', '-') }}"
 
 [tool.poetry.dependencies]  # https://python-poetry.org/docs/dependency-specification/
 python = "^{{ cookiecutter.python_version }}"
+{%- if cookiecutter.install_pydantic %}
+pydantic = "^2.6.4"
+{%- endif %}
 
 [tool.poetry.group.dev.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
-black = "^24.2.0"
-mypy = "^1.8.0"
-pre-commit = "^3.6.2"
-pytest = "^8.0.2"
-coverage = "^7.4.3"
-typeguard = "^4.1.5"
-ruff = "^0.3.0"
-safety = "<3.0.0"  # Pinned to <3.0.0 due to https://github.com/pyupio/safety/issues/504
+black = "^24.3.0"
+mypy = "^1.9.0"
+pre-commit = "^3.7.0"
+pytest = "^8.1.1"
+coverage = "^7.4.4"
+typeguard = "^4.2.1"
+ruff = "^0.3.4"
+safety = "^3.1.0"
 
 [tool.black]  # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
 target-version = ["py{{ cookiecutter.python_version.replace('.', '') }}"]
@@ -33,11 +36,9 @@ show_error_codes = true
 show_error_context = true
 show_traceback = true
 color_output = true
-# Uncomment this if you are using pydantic
-#plugins = [
-#  "pydantic.mypy"
-#]
-
+{%- if cookiecutter.install_pydantic %}
+plugins = ["pydantic.mypy"]
+{% endif %}
 strict = true  # https://mypy.readthedocs.io/en/stable/existing_code.html#introduce-stricter-options
 ignore_missing_imports = true
 disallow_untyped_decorators = false
@@ -46,15 +47,13 @@ disallow_untyped_decorators = false
 module = "tests.*"
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
-
-# Uncomment this if you are using pydantic
-#[tool.pydantic-mypy]
-## https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin
-#init_forbid_extra = true
-#init_typed = true
-#warn_required_dynamic_aliases = true
-#warn_untyped_fields = true
-
+{% if cookiecutter.install_pydantic %}
+[tool.pydantic-mypy]  # https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+{% endif %}
 [tool.pytest.ini_options]
 # https://docs.pytest.org/en/6.2.x/customize.html#pyproject-toml
 # https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref
