@@ -39,6 +39,7 @@ color_output = true
 
 strict = true  # https://mypy.readthedocs.io/en/stable/existing_code.html#introduce-stricter-options
 ignore_missing_imports = true
+disallow_untyped_decorators = false
 
 [[tool.mypy.overrides]]
 module = "tests.*"
