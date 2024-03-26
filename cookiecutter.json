@@ -5,5 +5,6 @@
   "username": "username",
   "git_repo_url": "https://{{ cookiecutter.git_platform }}.com/{{ cookiecutter.username.lower() }}/{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
   "python_version": "3.9",
-  "line_length": 88
+  "line_length": 88,
+  "install_pydantic": true
 }
