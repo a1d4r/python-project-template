@@ -4,9 +4,7 @@ import re
 import sys
 
 PACKAGE_NAME = "{{ cookiecutter.package_name }}"
-PROJECT_VERSION = "{{ cookiecutter.version }}"
 LINE_LENGTH_PARAMETER = "{{ cookiecutter.line_length }}"
-
 
 MODULE_REGEX = re.compile(r"^[a-z][a-z0-9\-\_]+[a-z0-9]$")
 SEMVER_REGEX = re.compile(
@@ -48,20 +46,6 @@ def validate_package_name(package_name: str) -> None:
         raise ValueError(message)
 
 
-def validate_semver(version: str) -> None:
-    """Ensure version in semver notation.
-
-    Args:
-        version: string version. For example 0.1.2 or 1.2.4
-
-    Raises:
-        ValueError: If version is not in semver notation
-    """
-    if SEMVER_REGEX.fullmatch(version) is None:
-        message = f"ERROR: The `{version}` is not in semver notation (https://semver.org/)"
-        raise ValueError(message)
-
-
 def validate_line_length(line_length: int) -> None:
     """Validate line_length parameter. Length should be between 50 and 300.
 
@@ -79,7 +63,6 @@ def validate_line_length(line_length: int) -> None:
 def main() -> None:
     try:
         validate_package_name(package_name=PACKAGE_NAME)
-        validate_semver(version=PROJECT_VERSION)
         validate_line_length(line_length=int(LINE_LENGTH_PARAMETER))
     except ValueError as ex:
         print(ex)
