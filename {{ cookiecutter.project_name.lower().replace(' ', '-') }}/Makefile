@@ -23,7 +23,7 @@ poetry-remove:
 .PHONY: install
 install:
 	poetry lock --no-interaction --no-update
-	poetry install --no-interaction
+	poetry install --no-interaction --sync
 
 .PHONY: pre-commit-install
 pre-commit-install:

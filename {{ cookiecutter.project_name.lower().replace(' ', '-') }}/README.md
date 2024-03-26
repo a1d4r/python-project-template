@@ -1,7 +1,5 @@
 # {{ cookiecutter.project_name.replace('-', ' ').replace('_', ' ') }}
 
-{{ cookiecutter.project_description }}
-
 ## Installation
 
 1. Clone `git` repo:
