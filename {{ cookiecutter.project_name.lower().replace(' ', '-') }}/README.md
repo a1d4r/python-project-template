@@ -74,7 +74,7 @@ make pre-commit-install
 <summary>3. Codestyle</summary>
 <p>
 
-Automatic formatting uses `black` and `ruff`.
+Automatic formatting uses `ruff`.
 
 ```bash
 make codestyle

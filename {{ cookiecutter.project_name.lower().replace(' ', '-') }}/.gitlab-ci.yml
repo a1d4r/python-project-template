@@ -34,9 +34,9 @@ check-poetry:
   <<: *quality
   script: make check-poetry
 
-check-black:
+check-codestyle:
   <<: *quality
-  script: make check-black
+  script: make check-codestyle
 
 check-ruff:
   <<: *quality

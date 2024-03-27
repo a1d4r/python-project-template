@@ -32,8 +32,8 @@ pre-commit-install:
 #* Formatters
 .PHONY: codestyle
 codestyle:
+	poetry run ruff format $(CODE)
 	poetry run ruff check $(CODE) --fix-only
-	poetry run black --config pyproject.toml $(CODE)
 
 .PHONY: format
 format: codestyle
@@ -50,13 +50,9 @@ test:
 check-poetry:
 	poetry check
 
-#* Check code style
-.PHONY: check-black
-check-black:
-	poetry run black --diff --check --config pyproject.toml $(CODE)
-
 .PHONY: check-codestyle
-check-codestyle: check-black
+check-codestyle:
+	poetry run ruff format $(CODE) --check
 
 #* Static linters
 
@@ -82,7 +78,7 @@ lint: check-poetry check-codestyle static-lint
 
 .PHONY: update-dev-deps
 update-dev-deps:
-	poetry add -G dev black@latest mypy@latest pre-commit@latest pytest@latest \
+	poetry add -G dev mypy@latest pre-commit@latest pytest@latest \
 										coverage@latest safety@latest typeguard@latest ruff@latest
 
 #* Docker

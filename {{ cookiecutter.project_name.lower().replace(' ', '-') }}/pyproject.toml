@@ -13,7 +13,6 @@ pydantic = "^2.6.4"
 {%- endif %}
 
 [tool.poetry.group.dev.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
-black = "^24.3.0"
 mypy = "^1.9.0"
 pre-commit = "^3.7.0"
 pytest = "^8.1.1"
@@ -21,11 +20,6 @@ coverage = "^7.4.4"
 typeguard = "^4.2.1"
 ruff = "^0.3.4"
 safety = "^3.1.0"
-
-[tool.black]  # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
-target-version = ["py{{ cookiecutter.python_version.replace('.', '') }}"]
-line-length = {{ cookiecutter.line_length }}
-color = true
 
 [tool.mypy]  # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
 junit_xml = "reports/mypy.xml"
@@ -110,9 +104,7 @@ ignore = [
   "ANN", # flake8-annotations (handled by mypy)
   "A003", # Class attribute `id` is shadowing a Python builtin
   "EM", # flake8-errmsg - String literals in exceptions
-  "E501", # pycodestyle - line too long (handled by black)
-  "RUF001", # cyrillic strings
-  "RUF002", # cyrillic docstrings
+  "E501", # pycodestyle - line too long (handled by formatter)
   "D100", # pydocstyle - Missing docstring in public module
   "D101", # pydocstyle - Missing docstring in public class
   "D102", # pydocstyle - Missing docstring in public method
@@ -121,11 +113,18 @@ ignore = [
   "D105", # pydocstyle - Missing docstring in magic method
   "D106", # pydocstyle - Missing docstring in public nested class
   "D107", # pydocstyle - Missing docstring in __init__
+  "COM812", # forced by ruff formatter
+  "ISC001", # forced by ruff formatter
 ]
 unfixable = [
   "F", # pyflakes
   "ERA", # eradicate - commented-out code
 ]
+allowed-confusables = [
+  "а", "А", "б", "Б", "в", "В", "г", "Г", "е", "Е", "з", "З", "и", "И", "к", "К", "м", "М",
+  "н", "Н", "о", "О", "р", "Р", "с", "С", "у", "У", "ф", "Ф", "х", "Х"  # Allow cyrillic letters
+]
+
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = [
@@ -159,3 +158,8 @@ convention = "google"
 allow-magic-value-types = ["int", "str", "bytes"]
 max-args = 10
 max-statements = 30
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = true

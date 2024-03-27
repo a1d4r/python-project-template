@@ -8,27 +8,37 @@ cookiecutter gh:a1d4r/python-package-template --checkout master
 
 ## Features
 
-In this [cookiecutter 🍪](https://github.com/cookiecutter/cookiecutter) template we combine state-of-the-art libraries and best development practices for Python.
+In this [cookiecutter 🍪](https://github.com/cookiecutter/cookiecutter) template we combine state-of-the-art libraries
+and best development practices for Python.
 
 ### Development features
 
 - Supports `Python 3.9` and higher.
-- [`Poetry`](https://python-poetry.org/) as a dependency manager. See configuration in [`pyproject.toml`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/pyproject.toml).
-- Automatic codestyle with [`black`](https://github.com/psf/black)
+- [`Poetry`](https://python-poetry.org/) as a dependency manager. See configuration
+  in [`pyproject.toml`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/pyproject.toml).
+- Automatic codestyle with [`Ruff formatter`](https://docs.astral.sh/ruff/formatter/)
 - Linting with [`ruff`](https://github.com/astral-sh/ruff)
-- Type checks with [`mypy`](https://mypy.readthedocs.io), security checks with [`safety`](https://github.com/pyupio/safety).
+- Type checks with [`mypy`](https://mypy.readthedocs.io), security checks
+  with [`safety`](https://github.com/pyupio/safety).
 - Testing with [`pytest`](https://docs.pytest.org/en/latest/) and [`coverage`](https://github.com/nedbat/coveragepy).
 - Ready-to-use [`pre-commit`](https://pre-commit.com/) hooks with code-formatting.
-- Ready-to-use [`.editorconfig`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.editorconfig), [`.dockerignore`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.dockerignore), and [`.gitignore`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.gitignore).
+-
+Ready-to-use [`.editorconfig`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.editorconfig), [`.dockerignore`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.dockerignore),
+and [`.gitignore`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.gitignore).
 
 ### Deployment features
 
-
-- `Github Actions` with linters and tests in the [workflow](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.github/workflows/test.yml).
-- `Gitlab CI` with linters and tests in the [pipeline](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.gitlab-ci.yml).
-- Ready-to-use [`Makefile`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/Makefile#L89) with formatting, linting, and testing. More details in [makefile-usage](#makefile-usage).
-- [Dockerfile](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/Dockerfile) for your package.
-- [docker-compose.yml](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/docker-compose.yml) for local development in Docker.
+- `Github Actions` with linters and tests in
+  the [workflow](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.github/workflows/test.yml).
+- `Gitlab CI` with linters and tests in
+  the [pipeline](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.gitlab-ci.yml).
+-
+Ready-to-use [`Makefile`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/Makefile#L89)
+with formatting, linting, and testing. More details in [makefile-usage](#makefile-usage).
+- [Dockerfile](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/Dockerfile)
+  for your package.
+- [docker-compose.yml](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/docker-compose.yml)
+  for local development in Docker.
 
 ## How to use it
 
@@ -52,16 +62,16 @@ Template generator will ask you to fill some variables.
 
 The input variables, with their default values:
 
-|   **Parameter**    |                   **Default value**                    | **Description**                                                                                                   |
-|:------------------:|:------------------------------------------------------:|-------------------------------------------------------------------------------------------------------------------|
-|   `project_name`   |                    `python-project`                    | [Check the availability of possible name](http://ivantomic.com/projects/ospnc/) before creating the project.      |
-|   `package_name`   |              based on the `project_name`               | Name of the python package with source code                                                                       |
-|   `git_platform`   |                        `github`                        | Git platform (Github/Gitlab)                                                                                      |
-|     `username`     |                       `username`                       | User or organization name for Git platform                                                                        |
-|   `git_repo_url`   | based on `git_platform`, `project_name` and `username` | URL to the git repository                                                                                         |
-|  `python_version`  |                         `3.9`                          | Python version. One of `3.9`, `3.10`, `3.11`, `3.12`. It is used for builds, CI and formatters.                   |
-|   `line_length`    |                           88                           | The max length per line (used for codestyle with `black` and `ruff`). NOTE: This value must be between 50 and 300. |
-| `install_pydantic` |                          true                          | If `pydantic` with `mypy` plugin should be installed                                                           |
+|   **Parameter**    |                   **Default value**                    | **Description**                                                                                              |
+|:------------------:|:------------------------------------------------------:|--------------------------------------------------------------------------------------------------------------|
+|   `project_name`   |                    `python-project`                    | [Check the availability of possible name](http://ivantomic.com/projects/ospnc/) before creating the project. |
+|   `package_name`   |              based on the `project_name`               | Name of the python package with source code                                                                  |
+|   `git_platform`   |                        `github`                        | Git platform (Github/Gitlab)                                                                                 |
+|     `username`     |                       `username`                       | User or organization name for Git platform                                                                   |
+|   `git_repo_url`   | based on `git_platform`, `project_name` and `username` | URL to the git repository                                                                                    |
+|  `python_version`  |                         `3.9`                          | Python version. One of `3.9`, `3.10`, `3.11`, `3.12`. It is used for builds, CI and formatters.              |
+|   `line_length`    |                           88                           | The max length per line. Must be between 50 and 300.                                                         |
+| `install_pydantic` |                          true                          | If `pydantic` with `mypy` plugin should be installed                                                         |
 
 All input values will be saved in the `cookiecutter-config-file.yml` file so that you won't lose them. 😉
 
@@ -71,7 +81,9 @@ All input values will be saved in the `cookiecutter-config-file.yml` file so tha
 
 ### More details
 
-Your project will contain `README.md` file with instructions for development, deployment, etc. You can read [the project README.md template](https://github.com/a1d4r/python-package-template/tree/master/%7B%7B%20cookiecutter.project_name%20%7D%7D) before.
+Your project will contain `README.md` file with instructions for development, deployment, etc. You can
+read [the project README.md template](https://github.com/a1d4r/python-package-template/tree/master/%7B%7B%20cookiecutter.project_name%20%7D%7D)
+before.
 
 ### Initial set up
 
@@ -79,16 +91,17 @@ Your project will contain `README.md` file with instructions for development, de
 
 By running `make install`
 
-After you create a project, it will appear in your directory, and will display [a message about how to initialize the project](https://github.com/a1d4r/python-package-template/tree/master/%7B%7B%20cookiecutter.project_name%20%7D%7D#very-first-steps).
+After you create a project, it will appear in your directory, and will
+display [a message about how to initialize the project](https://github.com/a1d4r/python-package-template/tree/master/%7B%7B%20cookiecutter.project_name%20%7D%7D#very-first-steps).
 
 #### Initialize `pre-commit`
 
 By running `make pre-commit-install`. Make sure to set up git first via `git init`.
 
-
 ### Makefile usage
 
-[`Makefile`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/Makefile) contains a lot of functions for faster development.
+[`Makefile`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/Makefile)
+contains a lot of functions for faster development.
 
 <details>
 <summary>1. Download and remove Poetry</summary>
@@ -132,7 +145,7 @@ make pre-commit-install
 <summary>3. Codestyle</summary>
 <p>
 
-Automatic formatting uses `black` and `ruff`
+Automatic formatting uses `ruff` formatter
 
 ```bash
 make codestyle
