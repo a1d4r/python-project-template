@@ -1,4 +1,4 @@
-name: app
+name: run-lint-tests
 
 on:
   push:
