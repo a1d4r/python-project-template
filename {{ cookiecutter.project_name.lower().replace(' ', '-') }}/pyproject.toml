@@ -20,6 +20,7 @@ coverage = "^7.4.4"
 typeguard = "^4.2.1"
 ruff = "^0.3.4"
 safety = "^3.1.0"
+deptry = "^0.16.0"
 
 [tool.mypy]  # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
 junit_xml = "reports/mypy.xml"
@@ -41,6 +42,7 @@ disallow_untyped_decorators = false
 module = "tests.*"
 disallow_untyped_defs = false
 disallow_incomplete_defs = false
+disallow_untyped_calls = false
 {% if cookiecutter.install_pydantic %}
 [tool.pydantic-mypy]  # https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin
 init_forbid_extra = true
@@ -163,3 +165,7 @@ max-statements = 30
 quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = true
+
+[tool.deptry.per_rule_ignores]
+DEP002 = []
+DEP003 = []

@@ -50,6 +50,10 @@ check-safety:
   <<: *quality
   script: make check-safety
 
+check-deptry:
+  <<: *quality
+  script: make check-deptry
+
 # Tests jobs ------------------------
 
 test:
