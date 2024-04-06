@@ -1,5 +1,5 @@
 #* Variables
-SHELL := /usr/bin/env bash
+SHELL := /usr/bin/env bash -o pipefail
 PYTHON := python3
 
 #* Docker variables
@@ -41,8 +41,7 @@ format: codestyle
 #* Test
 .PHONY: test
 test:
-	poetry run coverage run
-	poetry run coverage report
+	poetry run pytest
 	poetry run coverage xml
 
 # Validate dependencies
@@ -62,7 +61,11 @@ check-dependencies: check-poetry check-deptry
 .PHONY: check-ruff
 check-ruff:
 	poetry run ruff check $(CODE) --no-fix
-
+{% if cookiecutter.git_platform == 'gitlab' %}
+.PHONY: check-ruff-gitlab
+check-ruff-gitlab:
+	poetry run ruff check $(CODE) --output-format=gitlab > ruff-report.json
+{% endif %}
 .PHONY: check-codestyle
 check-codestyle:
 	poetry run ruff format $(CODE) --check
@@ -70,7 +73,12 @@ check-codestyle:
 .PHONY: check-mypy
 check-mypy:
 	poetry run mypy --install-types --non-interactive --config-file pyproject.toml $(CODE)
-
+{% if cookiecutter.git_platform == 'gitlab' %}
+.PHONY: check-mypy-gitlab
+check-mypy-gitlab:
+	poetry run mypy --install-types --non-interactive --no-error-summary --no-pretty --config-file pyproject.toml $(CODE) \
+	2>&1 | poetry run mypy-gitlab-code-quality > mypy-report.json
+{% endif %}
 .PHONY: static-lint
 static-lint: check-ruff check-mypy
 

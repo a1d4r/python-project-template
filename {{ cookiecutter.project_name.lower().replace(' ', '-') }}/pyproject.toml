@@ -16,11 +16,15 @@ pydantic = "^2.6.4"
 mypy = "^1.9.0"
 pre-commit = "^3.7.0"
 pytest = "^8.1.1"
+pytest-cov = "^5.0.0"
 coverage = "^7.4.4"
 typeguard = "^4.2.1"
 ruff = "^0.3.4"
 safety = "^3.1.0"
 deptry = "^0.16.0"
+{%- if cookiecutter.git_platform == 'gitlab' %}
+mypy-gitlab-code-quality = "^1.1.0"
+{%- endif %}
 
 [tool.mypy]  # https://mypy.readthedocs.io/en/latest/config_file.html#using-a-pyproject-toml-file
 junit_xml = "reports/mypy.xml"
@@ -68,12 +72,12 @@ addopts = [
   "--doctest-modules",
   "--doctest-continue-on-failure",
   "--typeguard-packages={{ cookiecutter.package_name }}",
-  "--junitxml=reports/pytest.xml"
+  "--cov",
+  "--junitxml=reports/junit.xml"
 ]
 
 [tool.coverage.run]  # https://coverage.readthedocs.io/en/latest/config.html#run
 branch = true
-command_line = "--module pytest"
 data_file = "reports/.coverage"
 source = ["{{ cookiecutter.package_name }}"]
 
@@ -126,7 +130,6 @@ allowed-confusables = [
   "а", "А", "б", "Б", "в", "В", "г", "Г", "е", "Е", "з", "З", "и", "И", "к", "К", "м", "М",
   "н", "Н", "о", "О", "р", "Р", "с", "С", "у", "У", "ф", "Ф", "х", "Х"  # Allow cyrillic letters
 ]
-
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = [
