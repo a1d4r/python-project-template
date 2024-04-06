@@ -3,7 +3,7 @@
 ## TL;DR
 
 ```bash
-cookiecutter gh:a1d4r/python-package-template --checkout master
+cookiecutter gh:a1d4r/python-project-template --checkout master
 ```
 
 ## Features
@@ -14,22 +14,22 @@ and best development practices for Python.
 ### Development features
 
 - Supports `Python 3.9` and higher.
-- [`Poetry`](https://python-poetry.org/) as a dependency manager. See configuration in [`pyproject.toml`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/pyproject.toml).
+- [`Poetry`](https://python-poetry.org/) as a dependency manager. See configuration in [`pyproject.toml`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/pyproject.toml).
 - Automatic codestyle with [`Ruff formatter`](https://docs.astral.sh/ruff/formatter/)
 - Linting with [`ruff`](https://github.com/astral-sh/ruff)
 - Type checks with [`mypy`](https://mypy.readthedocs.io), security checks with [`safety`](https://github.com/pyupio/safety).
 - Dependencies check with [`deptry`](https://deptry.com/)
 - Testing with [`pytest`](https://docs.pytest.org/en/latest/) and [`coverage`](https://github.com/nedbat/coveragepy).
 - Ready-to-use [`pre-commit`](https://pre-commit.com/) hooks with code-formatting.
-- Ready-to-use [`.editorconfig`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.editorconfig), [`.dockerignore`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.dockerignore), and [`.gitignore`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.gitignore).
+- Ready-to-use [`.editorconfig`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.editorconfig), [`.dockerignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.dockerignore), and [`.gitignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.gitignore).
 
 ### Deployment features
 
-- `Github Actions` with linters and tests in the [workflow](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.github/workflows/test.yml).
-- `Gitlab CI` with linters and tests in the [pipeline](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/.gitlab-ci.yml).
-- Ready-to-use [`Makefile`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/Makefile#L89) with formatting, linting, and testing. More details in [makefile-usage](#makefile-usage).
-- [Dockerfile](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/Dockerfile) for your package.
-- [docker-compose.yml](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/docker-compose.yml) for local development in Docker.
+- `Github Actions` with linters and tests in the [workflow](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.github/workflows/%7B%7B%20cookiecutter.package_name%20%7D%7D.yml).
+- `Gitlab CI` with linters and tests in the [pipeline](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.gitlab-ci.yml). Click [here](pages/gitlab.md) for detailed overview.
+- Ready-to-use [`Makefile`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/Makefile) with formatting, linting, and testing. More details in [makefile-usage](#makefile-usage).
+- [Dockerfile](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/Dockerfile) for your package.
+- [docker-compose.yml](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/docker-compose.yml) for local development in Docker.
 
 ## How to use it
 
@@ -44,7 +44,7 @@ pip install -U cookiecutter
 then go to a directory where you want to create your project and run:
 
 ```bash
-cookiecutter gh:a1d4r/python-package-template --checkout master
+cookiecutter gh:a1d4r/python-project-template --checkout master
 ```
 
 ### Input variables
@@ -73,7 +73,7 @@ All input values will be saved in the `cookiecutter-config-file.yml` file so tha
 ### More details
 
 Your project will contain `README.md` file with instructions for development, deployment, etc. You can
-read [the project README.md template](https://github.com/a1d4r/python-package-template/tree/master/%7B%7B%20cookiecutter.project_name%20%7D%7D)
+read [the project README.md template](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/README.md)
 before.
 
 ### Initial set up
@@ -83,7 +83,7 @@ before.
 By running `make install`
 
 After you create a project, it will appear in your directory, and will
-display [a message about how to initialize the project](https://github.com/a1d4r/python-package-template/tree/master/%7B%7B%20cookiecutter.project_name%20%7D%7D#very-first-steps).
+display [a message about how to initialize the project](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/README.md#installation).
 
 #### Initialize `pre-commit`
 
@@ -91,7 +91,7 @@ By running `make pre-commit-install`. Make sure to set up git first via `git ini
 
 ### Makefile usage
 
-[`Makefile`](https://github.com/a1d4r/python-package-template/blob/master/%7B%7B%20cookiecutter.project_name%20%7D%7D/Makefile)
+[`Makefile`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/Makefile)
 contains a lot of functions for faster development.
 
 <details>
