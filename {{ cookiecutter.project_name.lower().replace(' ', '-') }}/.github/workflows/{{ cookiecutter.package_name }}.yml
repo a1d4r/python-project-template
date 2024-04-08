@@ -1,4 +1,4 @@
-name: {{ cookiecutter.project_name.lower().replace(' ', '-') }}
+name: {{ cookiecutter.package_name }}
 
 on:
   push:
