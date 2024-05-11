@@ -19,7 +19,7 @@ pytest = "^8.1.1"
 pytest-cov = "^5.0.0"
 coverage = "^7.4.4"
 typeguard = "^4.2.1"
-ruff = "^0.3.4"
+ruff = "^0.4.4"
 safety = "^3.1.0"
 deptry = "^0.16.0"
 {%- if cookiecutter.git_platform == 'gitlab' %}
