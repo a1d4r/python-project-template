@@ -142,8 +142,14 @@ allowed-confusables = [
   "RUF001", # String contains ambiguous letter
 ]
 
-[tool.ruff.lint.flake8-tidy-imports]  # https://docs.astral.sh/ruff/settings/#flake8-tidy-imports
+[tool.ruff.lint.flake8-tidy-imports]  # https://docs.astral.sh/ruff/settings/#lintflake8-tidy-imports
 ban-relative-imports = "all"
+
+[tool.ruff.lint.flake8-boolean-trap]  # https://docs.astral.sh/ruff/settings/#lintflake8-bugbear
+extend-allowed-calls = ["pydantic.Field", "django.db.models.Value"]
+
+[tool.ruff.lint.flake8-bugbear]  # https://docs.astral.sh/ruff/settings/#lintflake8-bugbear
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Path", "fastapi.Body", "fastapi_filter.FilterDepends"]
 
 [tool.ruff.lint.isort]  # https://docs.astral.sh/ruff/settings/#isort
 section-order = ["future", "typing", "standard-library", "third-party", "first-party", "local-folder"]
