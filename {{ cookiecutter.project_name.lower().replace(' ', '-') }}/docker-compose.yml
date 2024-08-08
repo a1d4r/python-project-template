@@ -1,9 +1,7 @@
-version: "3.9"
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: {{ cookiecutter.project_name.lower().replace(' ', '-') }}:latest
     volumes:
       - ./{{ cookiecutter.package_name }}:/app/{{ cookiecutter.package_name }}

@@ -40,7 +40,7 @@ ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 # BUILDER-BASE
 # Used to build deps + create our virtual environment
 ################################
-FROM python-base as builder-base
+FROM python-base AS builder-base
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         # deps for installing poetry
@@ -67,7 +67,7 @@ RUN --mount=type=cache,target=/root/.cache \
 # DEVELOPMENT
 # Image used during development / testing
 ################################
-FROM python-base as development
+FROM python-base AS development
 WORKDIR $PYSETUP_PATH
 
 # copy in our built poetry + venv
@@ -88,7 +88,7 @@ CMD ["python", "-m", "{{ cookiecutter.package_name }}.example"]
 # PRODUCTION
 # Final image used for runtime
 ################################
-FROM python-base as production
+FROM python-base AS production
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 COPY ./{{ cookiecutter.package_name }} /app/{{ cookiecutter.package_name }}
 WORKDIR /app

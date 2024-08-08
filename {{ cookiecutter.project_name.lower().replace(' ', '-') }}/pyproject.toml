@@ -161,12 +161,12 @@ split-on-trailing-comma = false
 
 [tool.ruff.lint.pep8-naming]
 classmethod-decorators = [
-    # Allow Pydantic's `@validator` decorator to trigger class method treatment.
-    "pydantic.validator",
-    # Allow SQLAlchemy's dynamic decorators, like `@field.expression`, to trigger class method treatment.
-    "declared_attr",
-    "expression",
-    "comparator",
+  # Allow Pydantic's `@validator` decorator to trigger class method treatment.
+  "pydantic.validator",
+  # Allow SQLAlchemy's dynamic decorators, like `@field.expression`, to trigger class method treatment.
+  "declared_attr",
+  "expression",
+  "comparator",
 ]
 
 [tool.ruff.lint.pycodestyle]  # https://docs.astral.sh/ruff/settings/#pycodestyle

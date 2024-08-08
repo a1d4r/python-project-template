@@ -14,22 +14,31 @@ and best development practices for Python.
 ### Development features
 
 - Supports `Python 3.9` and higher.
-- [`Poetry`](https://python-poetry.org/) as a dependency manager. See configuration in [`pyproject.toml`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/pyproject.toml).
+- [`Poetry`](https://python-poetry.org/) as a dependency manager. See configuration
+  in [`pyproject.toml`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/pyproject.toml).
 - Automatic codestyle with [`Ruff formatter`](https://docs.astral.sh/ruff/formatter/)
 - Linting with [`ruff`](https://github.com/astral-sh/ruff)
-- Type checks with [`mypy`](https://mypy.readthedocs.io), security checks with [`safety`](https://github.com/pyupio/safety).
+- Type checks with [`mypy`](https://mypy.readthedocs.io), security checks
+  with [`safety`](https://github.com/pyupio/safety).
 - Dependencies check with [`deptry`](https://deptry.com/)
 - Testing with [`pytest`](https://docs.pytest.org/en/latest/) and [`coverage`](https://github.com/nedbat/coveragepy).
 - Ready-to-use [`pre-commit`](https://pre-commit.com/) hooks with code-formatting.
-- Ready-to-use [`.editorconfig`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.editorconfig), [`.dockerignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.dockerignore), and [`.gitignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.gitignore).
+-
+Ready-to-use [`.editorconfig`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.editorconfig), [`.dockerignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.dockerignore),
+and [`.gitignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.gitignore).
 
 ### Deployment features
 
-- `Github Actions` with linters and tests in the [workflow](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.github/workflows/%7B%7B%20cookiecutter.package_name%20%7D%7D.yml).
-- `Gitlab CI` with linters and tests in the [pipeline](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.gitlab-ci.yml). Click [here](pages/gitlab.md) for detailed overview.
-- Ready-to-use [`Makefile`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/Makefile) with formatting, linting, and testing. More details in [makefile-usage](#makefile-usage).
+- `Github Actions` with linters and tests in
+  the [workflow](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.github/workflows/%7B%7B%20cookiecutter.package_name%20%7D%7D.yml).
+- `Gitlab CI` with linters and tests in
+  the [pipeline](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.gitlab-ci.yml).
+  Click [here](pages/gitlab.md) for detailed overview.
+- Ready-to-use [`Makefile`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/Makefile) with
+  formatting, linting, and testing. More details in [makefile-usage](#makefile-usage).
 - [Dockerfile](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/Dockerfile) for your package.
-- [docker-compose.yml](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/docker-compose.yml) for local development in Docker.
+- [docker-compose.yml](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/docker-compose.yml) for
+  local development in Docker.
 
 ## How to use it
 
@@ -92,7 +101,8 @@ By running `make pre-commit-install`. Make sure to set up git first via `git ini
 ### Makefile usage
 
 [`Makefile`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/Makefile)
-contains a lot of functions for faster development.
+contains a lot of functions
+for faster development.
 
 <details>
 <summary>1. Download and remove Poetry</summary>
