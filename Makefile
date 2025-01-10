@@ -6,7 +6,7 @@ PYTHONPATH := `pwd`
 #* Poetry
 .PHONY: poetry-download
 poetry-download:
-	curl -sSL https://install.python-poetry.org | $(PYTHON) -
+	POETRY_VERSION=1.8.5 curl -sSL https://install.python-poetry.org | $(PYTHON) -
 
 .PHONY: poetry-remove
 poetry-remove:
