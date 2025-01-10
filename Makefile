@@ -6,7 +6,7 @@ PYTHONPATH := `pwd`
 #* Poetry
 .PHONY: poetry-download
 poetry-download:
-	curl -sSL https://install.python-poetry.org | $(PYTHON) -
+	curl -sSL https://install.python-poetry.org | POETRY_VERSION=1.8.5 $(PYTHON) -
 
 .PHONY: poetry-remove
 poetry-remove:
@@ -17,7 +17,7 @@ poetry-remove:
 install:
 	poetry lock -n && poetry export --without-hashes > requirements.txt
 	poetry install -n
-	-poetry run mypy --install-types --non-interactive hooks tests
+	poetry run mypy --install-types --non-interactive hooks tests
 
 .PHONY: pre-commit-install
 pre-commit-install:

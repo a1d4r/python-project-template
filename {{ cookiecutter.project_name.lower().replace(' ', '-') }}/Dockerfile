@@ -4,7 +4,7 @@
 # PYTHON-BASE
 # Sets up all our shared environment variables
 ################################
-FROM python:{{ cookiecutter.python_version }}-slim as python-base
+FROM python:{{ cookiecutter.python_version }}-slim AS python-base
 
     # python
 ENV PYTHONUNBUFFERED=1 \
@@ -17,7 +17,7 @@ ENV PYTHONUNBUFFERED=1 \
     \
     # poetry
     # https://python-poetry.org/docs/configuration/#using-environment-variables
-    POETRY_VERSION=1.8.1 \
+    POETRY_VERSION=1.8.5 \
     # make poetry install to this location
     POETRY_HOME="/opt/poetry" \
     # make poetry create the virtual environment in the project's root

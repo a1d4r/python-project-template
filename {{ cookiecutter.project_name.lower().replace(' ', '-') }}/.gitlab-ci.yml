@@ -18,7 +18,7 @@ stages:
 .install-deps-template: &install-deps
   image: python:{{ cookiecutter.python_version }}
   before_script:
-    - pip install poetry
+    - pip install poetry==1.8.5
     - poetry --version
     - poetry config virtualenvs.in-project true
     - poetry config installer.max-workers 10
