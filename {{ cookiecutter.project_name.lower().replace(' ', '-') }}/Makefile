@@ -13,7 +13,7 @@ TESTS = tests
 #* Poetry
 .PHONY: poetry-download
 poetry-download:
-	POETRY_VERSION=1.8.5 curl -sSL https://install.python-poetry.org | $(PYTHON) -
+	curl -sSL https://install.python-poetry.org | POETRY_VERSION=1.8.5 $(PYTHON) -
 
 .PHONY: poetry-remove
 poetry-remove:
