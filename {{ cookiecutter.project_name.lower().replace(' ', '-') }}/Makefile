@@ -61,14 +61,19 @@ check-dependencies: check-poetry check-deptry
 .PHONY: check-ruff
 check-ruff:
 	poetry run ruff check $(CODE) --no-fix
+.PHONY: check-codestyle
+check-codestyle:
+	poetry run ruff format $(CODE) --check
 {% if cookiecutter.git_platform == 'gitlab' %}
 .PHONY: check-ruff-gitlab
 check-ruff-gitlab:
 	poetry run ruff check $(CODE) --output-format=gitlab > ruff-report.json
 {% endif %}
-.PHONY: check-codestyle
-check-codestyle:
-	poetry run ruff format $(CODE) --check
+{% if cookiecutter.git_platform == 'github' %}
+.PHONY: check-ruff-github
+check-ruff-github:
+	poetry run ruff check $(CODE) --no-fix --output-format=github
+{% endif %}
 
 .PHONY: check-mypy
 check-mypy:
