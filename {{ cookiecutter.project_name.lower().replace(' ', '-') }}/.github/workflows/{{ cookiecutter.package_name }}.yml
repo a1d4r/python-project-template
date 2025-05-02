@@ -39,8 +39,17 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
 
-      - name: Run linters
-        run: make lint
+      - name: Check dependencies
+        run: make check-dependencies
+
+      - name: Check codestyle
+        run: make check-codestyle
+
+      - name: ruff
+        run: make check-ruff-github
+
+      - name: mypy
+        run: make check-mypy
 
   test:
     runs-on: ubuntu-latest
