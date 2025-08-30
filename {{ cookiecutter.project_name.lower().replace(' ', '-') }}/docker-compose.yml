@@ -3,5 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: development
     volumes:
       - ./{{ cookiecutter.package_name }}:/app/{{ cookiecutter.package_name }}
