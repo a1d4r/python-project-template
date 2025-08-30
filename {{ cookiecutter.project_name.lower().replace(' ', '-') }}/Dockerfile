@@ -2,7 +2,7 @@
 # BUILDER
 # Used to build deps + create our virtual environment using uv
 ################################
-FROM ghcr.io/astral-sh/uv:{{ cookiecutter.python_version }}-bookworm-slim AS builder
+FROM ghcr.io/astral-sh/uv:python{{ cookiecutter.python_version }}-bookworm-slim AS builder
 
 # Set uv environment variables for optimal Docker builds
 ENV UV_COMPILE_BYTECODE=1 \
