@@ -1,5 +1,7 @@
 """This module is called after project is created."""
+
 import textwrap
+
 from pathlib import Path
 
 # Project root directory
@@ -51,7 +53,7 @@ def print_further_instructions(project_name: str, git_repo_url: str) -> None:
     print(textwrap.dedent(message))
 
 
-def rm_tree(pth: Path):
+def rm_tree(pth: Path) -> None:
     for child in pth.iterdir():
         if child.is_file():
             child.unlink()
@@ -60,10 +62,7 @@ def rm_tree(pth: Path):
     pth.rmdir()
 
 
-def remove_unrelated_ci_configuration(
-    project_directory: Path,
-    git_platform: str,
-) -> None:
+def remove_unrelated_ci_configuration(project_directory: Path, git_platform: str) -> None:
     if git_platform == "github":
         (project_directory / ".gitlab-ci.yml").unlink()
     elif git_platform == "gitlab":
@@ -75,8 +74,7 @@ def remove_unrelated_ci_configuration(
 def main() -> None:
     print_further_instructions(project_name=PROJECT_NAME, git_repo_url=GIT_REPO_URL)
     remove_unrelated_ci_configuration(
-        project_directory=PROJECT_DIRECTORY,
-        git_platform=GIT_PLATFORM,
+        project_directory=PROJECT_DIRECTORY, git_platform=GIT_PLATFORM
     )
 
 

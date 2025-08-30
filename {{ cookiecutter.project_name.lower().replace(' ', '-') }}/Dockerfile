@@ -1,95 +1,85 @@
-# Source: https://gist.github.com/usr-ein/c42d98abca3cb4632ab0c2c6aff8c88a
-
 ################################
-# PYTHON-BASE
-# Sets up all our shared environment variables
+# BUILDER
+# Used to build deps + create our virtual environment using uv
 ################################
-FROM python:{{ cookiecutter.python_version }}-slim AS python-base
+FROM ghcr.io/astral-sh/uv:{{ cookiecutter.python_version }}-bookworm-slim AS builder
 
-    # python
+# Set uv environment variables for optimal Docker builds
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=0
+
+# Set Python environment variables
 ENV PYTHONUNBUFFERED=1 \
-    # prevents python creating .pyc files
-    PYTHONDONTWRITEBYTECODE=1 \
-    \
-    # pip
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100 \
-    \
-    # poetry
-    # https://python-poetry.org/docs/configuration/#using-environment-variables
-    POETRY_VERSION=1.8.5 \
-    # make poetry install to this location
-    POETRY_HOME="/opt/poetry" \
-    # make poetry create the virtual environment in the project's root
-    # it gets named `.venv`
-    POETRY_VIRTUALENVS_IN_PROJECT=true \
-    # do not ask any interactive question
-    POETRY_NO_INTERACTION=1 \
-    \
-    # paths
-    # this is where our requirements + virtual environment will live
-    PYSETUP_PATH="/opt/pysetup" \
-    VENV_PATH="/opt/pysetup/.venv"
+    PYTHONDONTWRITEBYTECODE=1
 
+WORKDIR /app
 
-# prepend poetry and venv to path
-ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+# Install dependencies first for better Docker layer caching
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project --no-dev
 
+# Copy the project into the image
+COPY . /app
 
-################################
-# BUILDER-BASE
-# Used to build deps + create our virtual environment
-################################
-FROM python-base AS builder-base
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
-        # deps for installing poetry
-        curl \
-        # deps for building python deps
-        build-essential
-
-# install poetry - respects $POETRY_VERSION & $POETRY_HOME
-# The --mount will mount the buildx cache directory to where
-# Poetry and Pip store their cache so that they can re-use it
-RUN --mount=type=cache,target=/root/.cache \
-    curl -sSL https://install.python-poetry.org | python3 -
-
-# copy project requirement files here to ensure they will be cached.
-WORKDIR $PYSETUP_PATH
-COPY poetry.lock pyproject.toml ./
-
-# install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
-RUN --mount=type=cache,target=/root/.cache \
-    poetry install --without=dev
+# Install the project itself
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --no-dev
 
 
 ################################
 # DEVELOPMENT
 # Image used during development / testing
 ################################
-FROM python-base AS development
-WORKDIR $PYSETUP_PATH
+FROM ghcr.io/astral-sh/uv:python{{ cookiecutter.python_version }}-bookworm-slim AS development
 
-# copy in our built poetry + venv
-COPY --from=builder-base $POETRY_HOME $POETRY_HOME
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
+# Set uv environment variables
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=0
 
-# quicker install as runtime deps are already installed
-RUN --mount=type=cache,target=/root/.cache \
-    poetry install --with=dev
+# Set Python environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
 
-# will become mountpoint of our code
 WORKDIR /app
+
+# Install all dependencies including dev dependencies
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project
+
+# Copy the project into the image
+COPY . /app
+
+# Install the project itself with dev dependencies
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked
+
+# Place executables in the environment at the front of the path
+ENV PATH="/app/.venv/bin:$PATH"
 
 CMD ["python", "-m", "{{ cookiecutter.package_name }}.example"]
 
 
 ################################
 # PRODUCTION
-# Final image used for runtime
+# Final image used for runtime without uv
 ################################
-FROM python-base AS production
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-COPY ./{{ cookiecutter.package_name }} /app/{{ cookiecutter.package_name }}
+FROM python:{{ cookiecutter.python_version }}-slim-bookworm AS production
+
+# Set Python environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+# Copy the application from the builder
+COPY --from=builder --chown=app:app /app /app
+
+# Place executables in the environment at the front of the path
+ENV PATH="/app/.venv/bin:$PATH"
+
 WORKDIR /app
 CMD ["python", "-m", "{{ cookiecutter.package_name }}.example"]

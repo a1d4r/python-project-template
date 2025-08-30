@@ -1,90 +1,127 @@
 #* Variables
-SHELL := /usr/bin/env bash
+SHELL := /usr/bin/env bash -o pipefail
 PYTHON := python3
-PYTHONPATH := `pwd`
 
-#* Poetry
-.PHONY: poetry-download
-poetry-download:
-	curl -sSL https://install.python-poetry.org | POETRY_VERSION=1.8.5 $(PYTHON) -
+#* Directories with source code
+CODE = hooks tests
+TESTS = tests
 
-.PHONY: poetry-remove
-poetry-remove:
-	curl -sSL https://install.python-poetry.org | $(PYTHON) - --uninstall
+#* uv package manager
+.PHONY: uv-install
+uv-install:
+	curl -LsSf https://astral.sh/uv/install.sh | sh
 
 #* Installation
 .PHONY: install
 install:
-	poetry lock -n && poetry export --without-hashes > requirements.txt
-	poetry install -n
-	poetry run mypy --install-types --non-interactive hooks tests
+	uv sync
 
 .PHONY: pre-commit-install
 pre-commit-install:
-	poetry run pre-commit install
+	uv run pre-commit install
 
 #* Formatters
 .PHONY: codestyle
 codestyle:
-	poetry run pyupgrade --exit-zero-even-if-changed --py37-plus **/*.py
-	poetry run isort --settings-path pyproject.toml hooks tests
-	poetry run black --config pyproject.toml hooks tests
+	uv run ruff format $(CODE)
+	uv run ruff check $(CODE) --fix-only
 
-.PHONY: formatting
-formatting: codestyle
+.PHONY: format
+format: codestyle
 
-#* Linting
+#* Test
 .PHONY: test
 test:
-	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=html --cov=hooks tests/
+	uv run pytest
+	uv run coverage xml
+
+# Validate dependencies
+.PHONY: check-uv
+check-uv:
+	uv lock --check
+
+.PHONY: check-deptry
+check-deptry:
+	uv run deptry .
+
+.PHONY: check-dependencies
+check-dependencies: check-uv check-deptry
+
+#* Static linters
+
+.PHONY: check-ruff
+check-ruff:
+	uv run ruff check $(CODE) --no-fix
 
 .PHONY: check-codestyle
 check-codestyle:
-	poetry run isort --diff --check-only --settings-path pyproject.toml hooks tests
-	poetry run black --diff --check --config pyproject.toml hooks tests
-	poetry run darglint --verbosity 2 hooks tests
+	uv run ruff format $(CODE) --check
 
-.PHONY: mypy
-mypy:
-	poetry run mypy --config-file pyproject.toml hooks tests
+
+.PHONY: check-ruff-github
+check-ruff-github:
+	uv run ruff check $(CODE) --no-fix --output-format=github
+
+
+.PHONY: check-mypy
+check-mypy:
+	uv run mypy --install-types --non-interactive --config-file pyproject.toml $(CODE)
+
+.PHONY: static-lint
+static-lint: check-ruff check-mypy
+
+#* Check safety
 
 .PHONY: check-safety
 check-safety:
-	poetry check
-	poetry run safety check --full-report
-	poetry run bandit -ll --recursive hooks
+	uv run safety check --full-report
 
 .PHONY: lint
-lint: test check-codestyle mypy check-safety
+lint: check-dependencies check-codestyle static-lint
 
-.PHONY: update-dev-deps
-update-dev-deps:
-	poetry add -D black@latest bandit@latest darglint@latest "isort[colors]@latest" mypy@latest pre-commit@latest pydocstyle@latest pylint@latest pytest@latest pyupgrade@latest safety@latest coverage@latest pytest-html@latest pytest-cov@latest
+# Currently not supported in uv: https://github.com/astral-sh/uv/issues/6794
+#.PHONY: update-dev-deps
+#update-dev-deps:
+#	poetry add -G dev mypy@latest pre-commit@latest pytest@latest deptry@latest \
+#										coverage@latest safety@latest typeguard@latest ruff@latest
+
+.PHONY: update
+update:
+	uv lock --upgrade
 
 #* Cleaning
 .PHONY: pycache-remove
 pycache-remove:
-	find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs rm -rf
+	find . | grep -E "(__pycache__|\.pyc|\.pyo$$)" | xargs rm -rf || true
 
 .PHONY: dsstore-remove
 dsstore-remove:
-	find . | grep -E ".DS_Store" | xargs rm -rf
+	find . | grep -E ".DS_Store" | xargs rm -rf || true
 
 .PHONY: mypycache-remove
 mypycache-remove:
-	find . | grep -E ".mypy_cache" | xargs rm -rf
+	find . | grep -E ".mypy_cache" | xargs rm -rf || true
 
 .PHONY: ipynbcheckpoints-remove
 ipynbcheckpoints-remove:
-	find . | grep -E ".ipynb_checkpoints" | xargs rm -rf
+	find . | grep -E ".ipynb_checkpoints" | xargs rm -rf || true
 
 .PHONY: pytestcache-remove
 pytestcache-remove:
-	find . | grep -E ".pytest_cache" | xargs rm -rf
+	find . | grep -E ".pytest_cache" | xargs rm -rf || true
+
+.PHONY: ruffcache-remove
+ruffcache-remove:
+	find . | grep -E ".ruff_cache" | xargs rm -rf || true
 
 .PHONY: build-remove
 build-remove:
 	rm -rf build/
 
+.PHONY: reports-remove
+reports-remove:
+	rm -rf reports/
+
 .PHONY: cleanup
-cleanup: pycache-remove dsstore-remove mypycache-remove ipynbcheckpoints-remove pytestcache-remove
+cleanup: pycache-remove dsstore-remove mypycache-remove ruffcache-remove \
+ipynbcheckpoints-remove pytestcache-remove reports-remove

@@ -13,19 +13,16 @@ and best development practices for Python.
 
 ### Development features
 
-- Supports `Python 3.9` and higher.
-- [`Poetry`](https://python-poetry.org/) as a dependency manager. See configuration
-  in [`pyproject.toml`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/pyproject.toml).
-- Automatic codestyle with [`Ruff formatter`](https://docs.astral.sh/ruff/formatter/)
+- Supports `Python 3.9 - 3.13`
+- [`uv`](https://docs.astral.sh/uv/) as a package manager.
+- Automatic codestyle with [`ruff formatter`](https://docs.astral.sh/ruff/formatter/)
 - Linting with [`ruff`](https://github.com/astral-sh/ruff)
 - Type checks with [`mypy`](https://mypy.readthedocs.io), security checks
   with [`safety`](https://github.com/pyupio/safety).
 - Dependencies check with [`deptry`](https://deptry.com/)
 - Testing with [`pytest`](https://docs.pytest.org/en/latest/) and [`coverage`](https://github.com/nedbat/coveragepy).
 - Ready-to-use [`pre-commit`](https://pre-commit.com/) hooks with code-formatting.
--
-Ready-to-use [`.editorconfig`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.editorconfig), [`.dockerignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.dockerignore),
-and [`.gitignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.gitignore).
+- Ready-to-use [`.editorconfig`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.editorconfig), [`.dockerignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.dockerignore), and [`.gitignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.gitignore).
 
 ### Deployment features
 
@@ -33,7 +30,7 @@ and [`.gitignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'
   the [workflow](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.github/workflows/%7B%7B%20cookiecutter.package_name%20%7D%7D.yml).
 - `Gitlab CI` with linters and tests in
   the [pipeline](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.gitlab-ci.yml).
-  Click [here](pages/gitlab.md) for detailed overview.
+  Click [here](pages/gitlab.md) for a detailed overview.
 - Ready-to-use [`Makefile`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/Makefile) with
   formatting, linting, and testing. More details in [makefile-usage](#makefile-usage).
 - [Dockerfile](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/Dockerfile) for your package.
@@ -69,15 +66,11 @@ The input variables, with their default values:
 |   `git_platform`   |                        `github`                        | Git platform (Github/Gitlab)                                                                                 |
 |     `username`     |                       `username`                       | User or organization name for Git platform                                                                   |
 |   `git_repo_url`   | based on `git_platform`, `project_name` and `username` | URL to the git repository                                                                                    |
-|  `python_version`  |                         `3.9`                          | Python version. One of `3.9`, `3.10`, `3.11`, `3.12`. It is used for builds, CI and formatters.              |
+|  `python_version`  |                         `3.9`                          | Python version. One of `3.9`, `3.10`, `3.11`, `3.12`, `3.13`. It is used for builds, CI and formatters.      |
 |   `line_length`    |                           88                           | The max length per line. Must be between 50 and 300.                                                         |
 | `install_pydantic` |                          true                          | If `pydantic` with `mypy` plugin should be installed                                                         |
 
 All input values will be saved in the `cookiecutter-config-file.yml` file so that you won't lose them. 😉
-
-#### Demo
-
-[![Demo of github.com/TezRomacH/python-package-template](https://asciinema.org/a/422052.svg)](https://asciinema.org/a/422052)
 
 ### More details
 
@@ -87,7 +80,7 @@ before.
 
 ### Initial set up
 
-#### Initialize `poetry`
+#### Initialize `uv`
 
 By running `make install`
 
@@ -105,19 +98,13 @@ contains a lot of functions
 for faster development.
 
 <details>
-<summary>1. Download and remove Poetry</summary>
+<summary>1. Download uv</summary>
 <p>
 
-To download and install Poetry run:
+To download and install uv run:
 
 ```bash
-make poetry-download
-```
-
-To uninstall
-
-```bash
-make poetry-remove
+make uv-install
 ```
 
 </p>
@@ -161,10 +148,10 @@ Codestyle checks only, without rewriting files:
 make check-codestyle
 ```
 
-Update all dev libraries to the latest version using one comand
+Update all libraries to the latest version using one command
 
 ```bash
-make update-dev-deps
+make update
 ```
 
 </p>
@@ -174,11 +161,7 @@ make update-dev-deps
 <summary>4. Code security</summary>
 <p>
 
-```bash
-make check-safety
-```
-
-This command launches `Poetry` integrity checks as well as identifies security issues with `Safety`
+This command identifies security issues with `Safety`
 
 ```bash
 make check-safety
@@ -229,22 +212,6 @@ make lint
 <details>
 <summary>8. Docker</summary>
 <p>
-
-```bash
-make docker-build
-```
-
-which is equivalent to:
-
-```bash
-make docker-build VERSION=latest
-```
-
-Remove docker image with
-
-```bash
-make docker-remove
-```
 
 Run with docker compose
 

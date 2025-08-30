@@ -1,13 +1,20 @@
 # Global --------------------------
 
 variables:
-  PIP_CACHE_DIR: "${CI_PROJECT_DIR}/.cache/pip"
+  UV_VERSION: "0.8.14"
+  PYTHON_VERSION: "{{ cookiecutter.python_version }}"
+  BASE_LAYER: bookworm-slim
+  # GitLab CI creates a separate mountpoint for the build directory,
+  # so we need to copy instead of using hard links.
+  UV_LINK_MODE: copy
+  UV_CACHE_DIR: .uv-cache
 
 cache:
-  key: "${CI_JOB_NAME}"
-  paths:
-    - .cache/pip
-    - .venv
+  - key:
+      files:
+        - uv.lock
+    paths:
+      - $UV_CACHE_DIR
 
 stages:
   - quality
@@ -16,13 +23,12 @@ stages:
 # Jobs templates ------------------
 
 .install-deps-template: &install-deps
-  image: python:{{ cookiecutter.python_version }}
+  image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
   before_script:
-    - pip install poetry==1.8.5
-    - poetry --version
-    - poetry config virtualenvs.in-project true
-    - poetry config installer.max-workers 10
-    - poetry install -vv
+    - uv --version
+    - uv sync --dev
+  after_script:
+    - uv cache prune --ci
 
 .quality-template: &quality
   <<: *install-deps
@@ -30,9 +36,9 @@ stages:
 
 # Quality jobs ----------------------
 
-check-poetry:
+check-dependencies:
   <<: *quality
-  script: make check-poetry
+  script: make check-dependencies
 
 check-codestyle:
   <<: *quality
