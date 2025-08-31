@@ -9,10 +9,10 @@ git clone {{ cookiecutter.git_repo_url }}.git
 cd {{ cookiecutter.project_name.lower().replace(' ', '-') }}
 ```
 
-2. If you don't have `Poetry` installed run:
+2. If you don't have `uv` installed run:
 
 ```bash
-make poetry-download
+make uv-download
 ```
 
 3. Initialize poetry and install `pre-commit` hooks:
@@ -30,22 +30,18 @@ make format lint test
 
 ### Makefile usage
 
-[`Makefile`]({{ cookiecutter.git_repo_url }}/blob/master/Makefile) contains a lot of functions for faster development.
+[`Makefile`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/Makefile)
+contains a lot of functions
+for faster development.
 
 <details>
-<summary>1. Download and remove Poetry</summary>
+<summary>1. Download uv</summary>
 <p>
 
-To download and install Poetry run:
+To download and install uv run:
 
 ```bash
-make poetry-download
-```
-
-To uninstall
-
-```bash
-make poetry-remove
+make uv-install
 ```
 
 </p>
@@ -61,7 +57,7 @@ Install requirements:
 make install
 ```
 
-Pre-commit hooks could be installed after `git init` via
+Pre-commit hooks coulb be installed after `git init` via
 
 ```bash
 make pre-commit-install
@@ -74,7 +70,7 @@ make pre-commit-install
 <summary>3. Codestyle</summary>
 <p>
 
-Automatic formatting uses `ruff`.
+Automatic formatting uses `ruff` formatter
 
 ```bash
 make codestyle
@@ -89,10 +85,10 @@ Codestyle checks only, without rewriting files:
 make check-codestyle
 ```
 
-Update all dev libraries to the latest version using one command
+Update all libraries to the latest version using one command
 
 ```bash
-make update-dev-deps
+make update
 ```
 
 </p>
@@ -102,29 +98,23 @@ make update-dev-deps
 <summary>4. Code security</summary>
 <p>
 
-This command identifies security issues with `Safety`:
+This command identifies security issues with `Safety`
 
 ```bash
 make check-safety
-```
-
-To validate `pyproject.toml` use
-
-```bash
-make check-poetry
 ```
 
 </p>
 </details>
 
 <details>
-<summary>5. Linting and type checks</summary>
+<summary>5. Type checks</summary>
 <p>
 
-Run static linting with `ruff` and `mypy`:
+Run `mypy` static type checker
 
 ```bash
-make static-lint
+make mypy
 ```
 
 </p>
@@ -134,7 +124,7 @@ make static-lint
 <summary>6. Tests with coverage</summary>
 <p>
 
-Run tests:
+Run `pytest`
 
 ```bash
 make test
@@ -160,23 +150,11 @@ make lint
 <summary>8. Docker</summary>
 <p>
 
-```bash
-make docker-build
-```
-
-which is equivalent to:
+Run with docker compose
 
 ```bash
-make docker-build VERSION=latest
+make docker-up
 ```
-
-Remove docker image with
-
-```bash
-make docker-remove
-```
-
-More information [about docker]({{ cookiecutter.git_repo_url }}/tree/master/docker).
 
 </p>
 </details>
@@ -184,31 +162,7 @@ More information [about docker]({{ cookiecutter.git_repo_url }}/tree/master/dock
 <details>
 <summary>9. Cleanup</summary>
 <p>
-Delete pycache files
-
-```bash
-make pycache-remove
-```
-
-Remove package build
-
-```bash
-make build-remove
-```
-
-Delete .DS_STORE files
-
-```bash
-make dsstore-remove
-```
-
-Remove .mypycache
-
-```bash
-make mypycache-remove
-```
-
-Or to remove all above run:
+Delete cache and build files:
 
 ```bash
 make cleanup
