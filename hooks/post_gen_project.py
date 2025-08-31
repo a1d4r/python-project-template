@@ -29,11 +29,11 @@ def print_further_instructions(project_name: str, git_repo_url: str) -> None:
 
         $ cd {project_directory} && git init
 
-    2) If you don't have Poetry installed run:
+    2) If you don't have uv installed run:
 
-        $ make poetry-download
+        $ make uv-install
 
-    3) Initialize poetry and install pre-commit hooks:
+    3) Initialize uv and install pre-commit hooks:
 
         $ make install
         $ make pre-commit-install
