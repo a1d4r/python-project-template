@@ -1,9 +1,6 @@
 # Global --------------------------
 
 variables:
-  UV_VERSION: "0.8.14"
-  PYTHON_VERSION: "{{ cookiecutter.python_version }}"
-  BASE_LAYER: bookworm-slim
   # GitLab CI creates a separate mountpoint for the build directory,
   # so we need to copy instead of using hard links.
   UV_LINK_MODE: copy
@@ -23,8 +20,9 @@ stages:
 # Jobs templates ------------------
 
 .install-deps-template: &install-deps
-  image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
+  image: python:{{ cookiecutter.python_version }}
   before_script:
+    - pip install uv==0.8.14
     - uv --version
     - uv sync --dev
   after_script:

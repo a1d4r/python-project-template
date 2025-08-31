@@ -56,17 +56,26 @@ check-ruff:
 .PHONY: check-codestyle
 check-codestyle:
 	uv run ruff format $(CODE) --check
-
-
+{% if cookiecutter.git_platform == 'gitlab' %}
+.PHONY: check-ruff-gitlab
+check-ruff-gitlab:
+	uv run ruff check $(CODE) --output-format=gitlab > ruff-report.json
+{% endif %}
+{% if cookiecutter.git_platform == 'github' %}
 .PHONY: check-ruff-github
 check-ruff-github:
 	uv run ruff check $(CODE) --no-fix --output-format=github
-
+{% endif %}
 
 .PHONY: check-mypy
 check-mypy:
 	uv run mypy --install-types --non-interactive --config-file pyproject.toml $(CODE)
-
+{% if cookiecutter.git_platform == 'gitlab' %}
+.PHONY: check-mypy-gitlab
+check-mypy-gitlab:
+	uv run mypy --install-types --non-interactive --no-error-summary --no-pretty --config-file pyproject.toml $(CODE) \
+	2>&1 | uv run mypy-gitlab-code-quality > mypy-report.json
+{% endif %}
 .PHONY: static-lint
 static-lint: check-ruff check-mypy
 
