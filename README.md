@@ -3,7 +3,7 @@
 ## TL;DR
 
 ```bash
-cookiecutter gh:a1d4r/python-project-template --checkout master
+cookiecutter gh:a1d4r/python-project-template --checkout main
 ```
 
 ## Features
