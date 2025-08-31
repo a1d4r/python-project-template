@@ -166,11 +166,11 @@ classmethod-decorators = [
 ]
 
 [tool.ruff.lint.pycodestyle]
-# https://docs.astral.sh/ruff/settings/#pycodestyle
+# https://docs.astral.sh/ruff/settings/#lintpycodestyle
 max-doc-length = 100
 
 [tool.ruff.lint.pydocstyle]
-# https://docs.astral.sh/ruff/settings/#pydocstyle
+# https://docs.astral.sh/ruff/settings/#lintpydocstyle
 convention = "google"
 
 [tool.ruff.lint.pylint]

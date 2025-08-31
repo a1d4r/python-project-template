@@ -52,7 +52,8 @@ disallow_untyped_defs = false
 disallow_incomplete_defs = false
 disallow_untyped_calls = false
 {% if cookiecutter.install_pydantic %}
-[tool.pydantic-mypy]  # https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin
+[tool.pydantic-mypy]
+# https://pydantic-docs.helpmanual.io/mypy_plugin/#configuring-the-plugin
 init_forbid_extra = true
 init_typed = true
 warn_required_dynamic_aliases = true
@@ -180,8 +181,11 @@ classmethod-decorators = [
 ]
 
 [tool.ruff.lint.pycodestyle]
-# https://docs.astral.sh/ruff/settings/#lintpydocstyle
+# https://docs.astral.sh/ruff/settings/#lintpycodestyle
 max-doc-length = 100
+
+[tool.ruff.lint.pydocstyle]
+# https://docs.astral.sh/ruff/settings/#lintpydocstyle
 convention = "google"
 
 [tool.ruff.lint.pylint]
