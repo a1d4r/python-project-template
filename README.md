@@ -1,9 +1,11 @@
 # Python Packages Project Generator
 
+*Warning*: this branch won't be supported anymore. If you really want to use Poetry use template in this branch. Otherwise, checkout the main branch with uv.
+
 ## TL;DR
 
 ```bash
-cookiecutter gh:a1d4r/python-project-template --checkout master
+cookiecutter gh:a1d4r/python-project-template --checkout poetry-v1
 ```
 
 ## Features
