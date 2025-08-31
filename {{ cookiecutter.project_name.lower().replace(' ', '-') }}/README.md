@@ -15,7 +15,7 @@ cd {{ cookiecutter.project_name.lower().replace(' ', '-') }}
 make uv-download
 ```
 
-3. Initialize poetry and install `pre-commit` hooks:
+3. Initialize uv and install `pre-commit` hooks:
 
 ```bash
 make install
