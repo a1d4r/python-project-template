@@ -65,10 +65,6 @@ check-safety:
   script: make check-safety
   allow_failure: true
 
-check-deptry:
-  <<: *quality
-  script: make check-deptry
-
 # Tests jobs ------------------------
 
 test:

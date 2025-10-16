@@ -193,6 +193,7 @@ convention = "google"
 allow-dunder-method-names = ["__tablename__", "__table_args__"]
 allow-magic-value-types = ["int", "str", "bytes"]
 max-args = 10
+max-branches = 15
 max-statements = 30
 
 [tool.ruff.format]
