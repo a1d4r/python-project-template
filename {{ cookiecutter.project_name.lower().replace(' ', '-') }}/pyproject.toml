@@ -1,7 +1,7 @@
 [project]
 name = "{{ cookiecutter.project_name.lower().replace(' ', '-') }}"
 version = "0.1.0"
-requires-python = ">=3.13"
+requires-python = ">={{ cookiecutter.python_version }}"
 {%- if cookiecutter.install_pydantic %}
 dependencies = [
     "pydantic>=2.9.2",
@@ -99,8 +99,7 @@ output = "reports/coverage.xml"
 
 [tool.ruff]
 # https://docs.astral.sh/ruff/settings/#top-level
-line-length = 100
-target-version = "py312"
+line-length = {{ cookiecutter.line_length }}
 
 [tool.ruff.lint]
 # https://docs.astral.sh/ruff/settings/#lint
@@ -182,7 +181,7 @@ classmethod-decorators = [
 
 [tool.ruff.lint.pycodestyle]
 # https://docs.astral.sh/ruff/settings/#lintpycodestyle
-max-doc-length = 100
+max-doc-length = {{ cookiecutter.line_length }}
 
 [tool.ruff.lint.pydocstyle]
 # https://docs.astral.sh/ruff/settings/#lintpydocstyle
