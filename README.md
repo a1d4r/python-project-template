@@ -21,6 +21,7 @@ and best development practices for Python.
   with [`safety`](https://github.com/pyupio/safety).
 - Dependencies check with [`deptry`](https://deptry.com/)
 - Testing with [`pytest`](https://docs.pytest.org/en/latest/) and [`coverage`](https://github.com/nedbat/coveragepy).
+- Runtime type checking in tests with [`typeguard`](https://github.com/agronholm/typeguard).
 - Ready-to-use [`pre-commit`](https://pre-commit.com/) hooks with code-formatting.
 - Ready-to-use [`.editorconfig`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.editorconfig), [`.dockerignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.dockerignore), and [`.gitignore`](%7B%7B%20cookiecutter.project_name.lower().replace('%20',%20'-')%20%7D%7D/.gitignore).
 

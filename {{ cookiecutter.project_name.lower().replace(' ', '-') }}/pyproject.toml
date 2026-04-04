@@ -63,7 +63,7 @@ warn_untyped_fields = true
 # https://docs.pytest.org/en/6.2.x/customize.html#pyproject-toml
 # https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref
 filterwarnings = ["error", "ignore::DeprecationWarning", "ignore::ImportWarning"]
-testpaths = ["{{ cookiecutter.package_name }}", "tests"]
+testpaths = ["tests"]
 xfail_strict = true
 
 # Extra options:
@@ -76,7 +76,6 @@ addopts = [
   "--verbosity=2",
   "--doctest-modules",
   "--doctest-continue-on-failure",
-  "--typeguard-packages={{ cookiecutter.package_name }}",
   "--cov",
   "--junitxml=reports/junit.xml"
 ]
