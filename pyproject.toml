@@ -186,6 +186,9 @@ indent-style = "space"
 quote-style = "double"
 skip-magic-trailing-comma = true
 
+[tool.deptry]
+extend_exclude = ["\\{\\{ cookiecutter"]
+
 [tool.deptry.per_rule_ignores]
 DEP002 = ["cookiecutter"]
 DEP003 = []
