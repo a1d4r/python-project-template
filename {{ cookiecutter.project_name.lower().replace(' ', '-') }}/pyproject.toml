@@ -6,7 +6,7 @@ requires-python = ">={{ cookiecutter.python_version }}"
 dependencies = [
     "pydantic>=2.9.2",
 ]
-{%- else -%}
+{%- else %}
 dependencies = []
 {%- endif %}
 
